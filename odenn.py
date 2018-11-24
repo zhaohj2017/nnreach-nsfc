@@ -5,15 +5,13 @@ import ann
 import backward
 import trainset
 import test
-import random
+
 
 #generate train set data
 traindata = trainset.gendata()
 
 #train the network
-random.shuffle(traindata)
-print traindata
-backward.gdescent(traindata)
+backward.recdescent(traindata)
 
 #check the precision
 test.gentest()
