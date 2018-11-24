@@ -1,8 +1,6 @@
 import numpy as np
 import superpara
 
-input =  np.zeros((superpara.INPUT_SIZE, 1)) 		#column vector
-
 weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE)
 
 weight_y_h = weight_matrix[:, 0]    			#array (or matrix ?)
