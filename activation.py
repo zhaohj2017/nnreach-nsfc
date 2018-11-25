@@ -12,6 +12,8 @@ def act_prime(x):
 def act_prime_prime(x):
 	return act_prime(x) - 2 * activation_fun(x) * act_prime(x)
 
+
+
 """
 #relu
 def activation_fun(x): #act on each element in a matrix

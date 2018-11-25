@@ -7,6 +7,17 @@ import trainset
 import test
 
 
+"""
+To solve a problem:
+1. Modify ode.py
+2. Modify superpara.py
+3. Modify adaptive.py
+4. Modify in test.py the check precision method, i.e. chkprecision()
+5. Determine in odenn.py whether you want to check precision or output the reachable set plotting: chkprecision() or reachplot()
+"""
+
+
+
 #generate train set data
 traindata = trainset.gendata()
 
@@ -14,4 +25,5 @@ traindata = trainset.gendata()
 backward.itrdescent(traindata)
 
 #check the precision
-test.gentest()
+test.chkprecision()
+test.reachplot(superpara.MESH_SIZE_Y / 10.0, superpara.MESH_SIZE_T / 10.0)
