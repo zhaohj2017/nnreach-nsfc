@@ -11,7 +11,7 @@ import test
 traindata = trainset.gendata()
 
 #train the network
-backward.recdescent(traindata)
+backward.itrdescent(traindata)
 
 #check the precision
 test.gentest()

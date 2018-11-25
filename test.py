@@ -15,7 +15,7 @@ def gentest():
 
 	while testdata[0, 0] <= superpara.RANGE_Y[1] - superpara.EPSILON:
 		res.append(gradient.sol_candidate(testdata))
-		testdata[0, 0] += 0.01
+		testdata[0, 0] += superpara.MESH_SIZE_Y / 10.0
 
 	#output
 	print "test:", max(res), "\treal:", (superpara.RANGE_Y[1] - superpara.EPSILON) * np.exp(testdata[1, 0])
