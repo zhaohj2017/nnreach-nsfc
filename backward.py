@@ -3,6 +3,7 @@ import superpara
 import gradient
 import ann
 import random
+import adaptive
 
 def error(x):
 	e = gradient.temp_res3(x)
@@ -87,15 +88,10 @@ def gdescent(dataset):
 		print "error_curr:", error_curr, "error_pre:", error_pre, "error_delta:", error_delta, "rate: ", superpara.LEARN_RATE, "\n"
 
 
-		#adjust learn rate or restart
-		if error_curr > 1e0 and error_delta < 1e-2:
-			print "RESTARAT!!!\n"
-			return 0 #return from gradescent early, 0 means that the loop in itrdescent continues, but stop a new loop (restart)
-	
-		
-		if error_curr < 1e-1 and error_delta < 1e-2: #continue to the next epoch
-			superpara.LEARN_RATE = - 1
-			superpara.BATCH_SIZE = 1
+		if adaptive.jump(error_curr, error_delta) == 0:
+			return 0 #restart
+
+		adaptive.adjust(error_curr, error_delta) #adjust learning rate
 		
 		
 	return 1 #all epochs finished, return 1, so the loop in itrdescent terminates
