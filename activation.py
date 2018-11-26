@@ -1,8 +1,5 @@
 import numpy as np
 
-#sigmoid
-def activation_fun(x): #act on each element in a matrix
-	return 1.0 / (1.0 + np.exp(-x))
 
 #activation prime
 def act_prime(x):
@@ -11,6 +8,21 @@ def act_prime(x):
 #activation prime prime
 def act_prime_prime(x):
 	return act_prime(x) - 2 * activation_fun(x) * act_prime(x)
+
+
+
+
+
+"""
+#other activation functions?
+
+
+"""
+
+
+#sigmoid
+def activation_fun(x): #act on each element in a matrix
+	return 1.0 / (1.0 + np.exp(-x))
 
 
 
