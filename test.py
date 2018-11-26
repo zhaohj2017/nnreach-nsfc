@@ -28,13 +28,17 @@ def chkprecision():
 	"""
 
 
-
+	
 	#output**********************  dy / dt = y  *******************************************
 	#example: dy / dt = y
 	print "test:", max(res), "\treal:", (superpara.RANGE_Y[1] - superpara.EPSILON) * np.exp(testdata[1, 0])
 	print "test:", min(res), "\treal:", (superpara.RANGE_Y[0] + superpara.EPSILON) * np.exp(testdata[1, 0])
-
 	
+	print gradient.sol_candidate(testdata)
+	testdata[0, 0] = superpara.RANGE_Y[0] + superpara.EPSILON
+	testdata[1, 0] = superpara.RANGE_T[0] - superpara.EPSILON
+	testdata[2, 0] = 1
+	print gradient.sol_candidate(testdata)
 
 
 

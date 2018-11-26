@@ -1,5 +1,6 @@
 import superpara
 
+
 """
 #*********************   dy / dt = exp(y) ****************************
 	
@@ -22,7 +23,7 @@ def adjust(curr, delta):
 
 
 
-
+#************* FIXED DO NOT CHANGE !!! ***********************
 #*********************   dy / dt = y ****************************
 
 #adjust learn rate or restart for example: dy / dt = y
@@ -36,3 +37,23 @@ def adjust(curr, delta):
 	if curr < 1e-1 and delta < 1e-2: #continue to the next epoch
 		superpara.LEARN_RATE = - 1
 		superpara.BATCH_SIZE = 1
+
+
+
+
+"""
+## using fast sigmoid
+#*********************   dy / dt = y ****************************
+
+#adjust learn rate or restart for example: dy / dt = y
+def jump(curr, delta):
+	if curr > 1e0 and delta < 1e-2:
+		print "RESTARAT!!!\n"
+		return 0 #return from gradescent early, 0 means that the loop in itrdescent continues, but stop a new loop (restart)
+
+#rate adjustment for example: dy / dt = y
+def adjust(curr, delta):
+	if curr < 0.005: #continue to the next epoch
+		superpara.LEARN_RATE = - 0.18
+		superpara.BATCH_SIZE = 1
+"""
