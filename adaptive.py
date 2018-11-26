@@ -1,6 +1,6 @@
 import superpara
 
-
+"""
 #*********************   dy / dt = exp(y) ****************************
 	
 #adjust learn rate or restart for example: dy/dt = exp(y)
@@ -16,12 +16,13 @@ def jump(curr, delta):
 def adjust(curr, delta):
 	if curr < 1e-1 and delta < 1e-2: #continue to the next epoch
 		superpara.LEARN_RATE = - 1
-		superpara.BATCH_SIZE = 1
-
-
-
-	
+		superpara.BATCH_SIZE = 1	
 """
+
+
+
+
+
 #*********************   dy / dt = y ****************************
 
 #adjust learn rate or restart for example: dy / dt = y
@@ -35,4 +36,3 @@ def adjust(curr, delta):
 	if curr < 1e-1 and delta < 1e-2: #continue to the next epoch
 		superpara.LEARN_RATE = - 1
 		superpara.BATCH_SIZE = 1
-"""

@@ -27,3 +27,8 @@ backward.itrdescent(traindata)
 #check the precision
 test.chkprecision()
 test.reachplot(superpara.MESH_SIZE_Y / 10.0, superpara.MESH_SIZE_T / 10.0)
+
+print ann.weight_h_o
+print ann.weight_y_h
+print ann.weight_t_h
+print ann.weight_b_h

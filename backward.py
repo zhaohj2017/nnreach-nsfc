@@ -6,8 +6,7 @@ import random
 import adaptive
 
 def error(x):
-	e = gradient.temp_res3(x)
-	return e * e
+	return np.square(gradient.temp_res3(x))
 
 def restart():
 	ann.weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE)

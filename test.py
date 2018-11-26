@@ -20,19 +20,19 @@ def chkprecision():
 		res.append(gradient.sol_candidate(testdata))
 		testdata[0, 0] += superpara.MESH_SIZE_Y / 10.0
 
+	"""
 	#output**********************  dy / dt = exp(y)  *******************************************
 	#example: dy / dt = exp(y)
 	print "test:", max(res), "\treal:", - math.log(np.exp(- superpara.RANGE_Y[1] + superpara.EPSILON) - testdata[1, 0])
 	print "test:", min(res), "\treal:", - math.log(np.exp(- superpara.RANGE_Y[0] - superpara.EPSILON) - testdata[1, 0])
-
-
-
 	"""
+
+
+
 	#output**********************  dy / dt = y  *******************************************
 	#example: dy / dt = y
 	print "test:", max(res), "\treal:", (superpara.RANGE_Y[1] - superpara.EPSILON) * np.exp(testdata[1, 0])
 	print "test:", min(res), "\treal:", (superpara.RANGE_Y[0] + superpara.EPSILON) * np.exp(testdata[1, 0])
-	"""
 
 	
 
