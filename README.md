@@ -1,5 +1,5 @@
 # odenn
-A neural network application for engineering
+A neural network application for engineering.
 
 
 To solve a problem:
@@ -9,3 +9,7 @@ To solve a problem:
 4. Modify adaptive.py
 5. Modify in test.py the check precision method, i.e. chkprecision()
 6. Determine in odenn.py whether you want to check precision or output the reachable set plotting: chkprecision() or reachplot()
+
+
+revise: T_START
+update delta matrix

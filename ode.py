@@ -4,14 +4,13 @@ import ann
 
 
 #working
-#***************** dy / dt = y *******************
+#***************** dy / dt = exp(y) *******************
 #ode
 def ode(y, t):
-	return y # dy / dt = y
+	return np.exp(y) # dy / dt = exp(y)
 
-#ode_derivative
 def ode_dy(y, t):
-	return 1 # dy / dy = 1
+	return np.exp(y) # dy / dy = exp(y)
 
 
 

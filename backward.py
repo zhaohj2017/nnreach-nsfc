@@ -6,8 +6,8 @@ import random
 import adaptive
 import chkweight
 
-def error(x):
-	return np.square(gradient.temp_res3(x))
+def error(x, step):
+	return np.square(gradient.temp_res3(x, step))
 
 def restart():
 	ann.weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE)
@@ -15,16 +15,13 @@ def restart():
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
-	chkweight.outweight()
+	#chkweight.outweight()
 	
-def gdescent(dataset):
+def gdescent(dataset, step):
 	#errors of between two epochs
 	error_pre = 0
 	error_curr = 0
 	error_delta = 0
-
-	#reset network weights
-	restart()
 
 	for epoch in range(superpara.EPOCHS):
 		#shuffle training data 
@@ -55,13 +52,13 @@ def gdescent(dataset):
 
 			#update gradient using data from this mini batch
 			for inputdata in batchset:
-				sum_grad_wyh += gradient.gradient_dw_y_h(inputdata)
-				sum_grad_wth += gradient.gradient_dw_t_h(inputdata)
-				sum_grad_wbh += gradient.gradient_dw_b_h(inputdata)
-				sum_grad_who += gradient.gradient_dw_h_o(inputdata)
+				sum_grad_wyh += gradient.gradient_dw_y_h(inputdata, step)
+				sum_grad_wth += gradient.gradient_dw_t_h(inputdata, step)
+				sum_grad_wbh += gradient.gradient_dw_b_h(inputdata, step)
+				sum_grad_who += gradient.gradient_dw_h_o(inputdata, step)
 
 				#update error of this mini batch
-				error_batch += error(inputdata)
+				error_batch += error(inputdata, step)
 
 			#update weight using gradient from this mini batch (average over the batch data)
 			"""
@@ -90,14 +87,17 @@ def gdescent(dataset):
 
 
 		if adaptive.jump(error_curr, error_delta) == 0:
-			return 0 #restart
+			restart() #reset the weight matrix
+			return 0  #restart from epoch 0
 
 		adaptive.adjust(error_curr, error_delta) #adjust learning rate
 		
 		
 	return 1 #all epochs finished, return 1, so the loop in itrdescent terminates
 
-def itrdescent(dataset):
+def itrdescent(dataset, step):
+	superpara.T_START = step * superpara.T_STEP
 	termination = 0
 	while termination != 1:
-		termination = gdescent(dataset)
+		termination = gdescent(dataset, step)
+

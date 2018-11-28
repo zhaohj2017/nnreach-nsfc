@@ -6,19 +6,22 @@ import backward
 import trainset
 import test
 import chkweight
+import pipes
 
 
 
 #generate train set data
-traindata = trainset.gendata()
-
-#train the network
-backward.itrdescent(traindata)
 
 
-#check weight
-chkweight.outweight()
+for step in range(superpara.NUM_STEP):
+	traindata = trainset.gendata(step)
 
-#check the precision
-test.chkprecision()
-#test.reachplot(superpara.MESH_SIZE_Y / 10.0, superpara.MESH_SIZE_T / 10.0)
+	#when start a new time step, do we need to update the weight matrix?
+	backward.itrdescent(traindata, step)
+
+	pipes.addpipe()
+
+	test.chkprecision(step)
+
+#plot
+test.reachplot(superpara.MESH_SIZE_Y / 10.0, superpara.MESH_SIZE_T / 10.0)
