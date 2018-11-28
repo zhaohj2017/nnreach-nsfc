@@ -4,6 +4,7 @@ import gradient
 import ann
 import random
 import adaptive
+import chkweight
 
 def error(x):
 	return np.square(gradient.temp_res3(x))
@@ -14,6 +15,7 @@ def restart():
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
+	chkweight.outweight()
 	
 def gdescent(dataset):
 	#errors of between two epochs
