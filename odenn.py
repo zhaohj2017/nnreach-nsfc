@@ -24,4 +24,4 @@ for step in range(superpara.NUM_STEP):
 	test.chkprecision(step)
 
 #plot
-test.reachplot(superpara.MESH_SIZE_Y / 10.0, superpara.MESH_SIZE_T / 10.0)
+test.reachplot(superpara.MESH_SIZE_Y / 5.0, superpara.MESH_SIZE_T / 5.0)

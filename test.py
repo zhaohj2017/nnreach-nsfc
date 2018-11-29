@@ -97,6 +97,6 @@ def reachplot(mesh_y, mesh_t):
 		height.extend(h_step)
 		bottom.extend(b_step)
 
-	plt.bar(time, height, 0.0001, bottom)
+	plt.bar(time, np.array(height) + 0.0001, 0.0001, bottom)
 	plt.show()
 		

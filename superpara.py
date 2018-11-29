@@ -1,29 +1,29 @@
 #working 
 #super parameter for example: dy / dt 
 
-EPOCHS = 10
-LEARN_RATE = - 0.5
+EPOCHS = 1
+LEARN_RATE = - 0.1
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
 
 MESH_SIZE_Y = 0.01
-MESH_SIZE_T = 0.01
+MESH_SIZE_T = 0.001
 
 EPS_Y = 0.05
 EPS_T = 0.05 # EPS_T should be less than T_STEP
 
-RANGE_Y = [0, 1]
+RANGE_Y = [1, 1]
 
 LENGTH_T = 0.3
 RANGE_T = [0, LENGTH_T]
 
-NUM_HIDDEN = 5
+NUM_HIDDEN = 1
 
-BATCH_SIZE = 10
+BATCH_SIZE = 1
 BATCH_NUM = 0
 
-T_STEP = 0.1
+T_STEP = 0.3
 NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) #very important
 T_START = 0
 

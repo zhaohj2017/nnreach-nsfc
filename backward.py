@@ -26,6 +26,7 @@ def gdescent(dataset, step):
 	for epoch in range(superpara.EPOCHS):
 		#shuffle training data 
 		random.shuffle(dataset)
+		#dataset.reverse()
 
 		#the number of mini batches
 		superpara.BATCH_NUM = len(dataset) / superpara.BATCH_SIZE
@@ -59,6 +60,7 @@ def gdescent(dataset, step):
 
 				#update error of this mini batch
 				error_batch += error(inputdata, step)
+				print "\terror_batch", error_batch
 
 			#update weight using gradient from this mini batch (average over the batch data)
 			"""
@@ -72,6 +74,7 @@ def gdescent(dataset, step):
 			ann.weight_b_h += superpara.LEARN_RATE * sum_grad_wbh / len(batchset)
 			ann.weight_h_o += superpara.LEARN_RATE * sum_grad_who / len(batchset)
 
+			chkweight.outweight()
 
 			#update epoch error using error of this mini batch
 			error_epoch += error_batch
