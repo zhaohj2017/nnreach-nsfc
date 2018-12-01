@@ -27,6 +27,9 @@ T_STEP = 0.3
 NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) #very important
 T_START = 0
 
+PLOT_MESH_Y = MESH_SIZE_Y / 5
+PLOT_MESH_T = MESH_SIZE_T / 5
+
 
 
 
