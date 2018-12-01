@@ -21,14 +21,14 @@ def chkprecision(step):
 
 	while testdata[0, 0] <= superpara.RANGE_Y[1]:
 		res.append(gradient.sol_candidate(testdata, step))
-		testdata[0, 0] += superpara.MESH_SIZE_Y / 10.0
+		testdata[0, 0] += superpara.MESH_SIZE_Y / superpara.TEST_RATE
 
 
 	
 	#output**********************  dy / dt = exp(y)  *******************************************
 	#example: dy / dt = exp(y)
-	print "test:", max(res), "\treal:", - math.log(np.exp(- superpara.RANGE_Y[1]) - testdata[1, 0])
-	print "test:", min(res), "\treal:", - math.log(np.exp(- superpara.RANGE_Y[0]) - testdata[1, 0])
+	print "test:", max(res), "\treal:", - np.log(np.exp(- superpara.RANGE_Y[1]) - testdata[1, 0])
+	print "test:", min(res), "\treal:", - np.log(np.exp(- superpara.RANGE_Y[0]) - testdata[1, 0])
 	print ""
 
 
@@ -67,6 +67,7 @@ def reachplot(mesh_y, mesh_t):
 	time = []
 	height = []
 	bottom = []
+	top = []
 
 	sample_y = np.arange(superpara.RANGE_Y[0], superpara.RANGE_Y[1] + mesh_y, mesh_y)
 	
@@ -79,6 +80,7 @@ def reachplot(mesh_y, mesh_t):
 			t_step = np.arange(0, superpara.T_STEP, mesh_t) + superpara.T_START
 		h_step = np.zeros(len(t_step))
 		b_step = np.zeros(len(t_step))
+		tp_step = np.zeros(len(t_step))
 
 		testdata = np.zeros((superpara.INPUT_SIZE, 1))
 		testdata[2, 0] = 1
@@ -92,11 +94,23 @@ def reachplot(mesh_y, mesh_t):
 			i = np.argwhere(t_step == curr_t) #get the index of curr_t in t_step
 			h_step[i] = max(res_y) - min(res_y)		
 			b_step[i] = min(res_y)
+			tp_step[i] = max(res_y)
 
 		time.extend(t_step)
 		height.extend(h_step)
 		bottom.extend(b_step)
+		top.extend(tp_step)
 
-	plt.bar(time, np.array(height) + 0.0001, 0.0001, bottom)
+	#plt.bar(time, np.array(height) + 0.0001, 0.0001, bottom)
+
+	t = np.arange(superpara.RANGE_T[0], superpara.RANGE_T[1] + superpara.PLOT_MESH_T, superpara.PLOT_MESH_T)
+	ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
+	ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
+
+	plt.plot(t, ytop)
+	plt.plot(t, ybtm)
+	plt.plot(t, bottom)
+	plt.plot(t, top)
+
 	plt.show()
 		
