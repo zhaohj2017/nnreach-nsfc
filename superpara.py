@@ -15,8 +15,8 @@ BATCH_NUM = 0
 MESH_SIZE_Y = 0.01
 MESH_SIZE_T = 0.01
 
-EPS_Y = 0.05
-EPS_T = 0.05 # EPS_T should be less than T_STEP
+EPS_Y = 0.0
+EPS_T = 0.0 # EPS_T should be less than T_STEP
 
 RANGE_Y = [0, 1]
 
@@ -32,7 +32,7 @@ PLOT_MESH_Y = MESH_SIZE_Y / TEST_RATE
 PLOT_MESH_T = MESH_SIZE_T / TEST_RATE
 
 RAND_SIZE_Y = 100
-RAND_SIZE_T = 40
+RAND_SIZE_T = 31
 
 
 

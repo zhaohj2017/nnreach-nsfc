@@ -12,22 +12,20 @@ def gendata(step):
 	superpara.RANGE_T[1] = (step + 1) * superpara.T_STEP
 	
 	#sample point by meshing
-	#sample_t = np.arange(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T, superpara.MESH_SIZE_Y)
-	
-	sample_t = np.random.uniform(superpara.RANGE_T[0], superpara.RANGE_T[1], size = (superpara.RAND_SIZE_T, ))
+	sample_t = np.arange(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T + superpara.MESH_SIZE_T, superpara.MESH_SIZE_T)
+	sample_y = np.arange(superpara.RANGE_Y[0] - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y + superpara.MESH_SIZE_Y, superpara.MESH_SIZE_Y)
+	if len(sample_y) == 0:
+		sample_y = np.array([superpara.RANGE_Y[0]])
+
+	"""
+	#uniform distribution
+	sample_t = np.random.uniform(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T, size = (superpara.RAND_SIZE_T, ))
 	sample_t[0] = superpara.RANGE_T[0]
 	sample_t[-1] = superpara.RANGE_T[1]
 
-	#sample point by meshing
-	#sample_y = np.arange(superpara.RANGE_Y[0] - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y, superpara.MESH_SIZE_Y)
-	
-	sample_y = np.random.uniform(superpara.RANGE_Y[0], superpara.RANGE_Y[1], size = (superpara.RAND_SIZE_Y, ))
+	sample_y = np.random.uniform(superpara.RANGE_Y[0]  - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y, size = (superpara.RAND_SIZE_Y, ))
 	sample_y[0] = superpara.RANGE_Y[0]
 	sample_y[-1] = superpara.RANGE_Y[1]
-	
-	"""
-	if len(sample_y) == 0:
-		sample_y = np.array([superpara.RANGE_Y[0]])
 	"""
 
 	for sy in sample_y:
