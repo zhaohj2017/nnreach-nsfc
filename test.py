@@ -1,11 +1,10 @@
 import numpy as np
 import gradient
 import superpara
-import math
 import matplotlib.pyplot as plt
 import ann
 import pipes
-
+#import math
 
 def chkprecision(step):
 	print '\n'
@@ -18,13 +17,10 @@ def chkprecision(step):
 	testdata[1, 0] = superpara.RANGE_T[1]
 	testdata[2, 0] = 1
 
-
 	while testdata[0, 0] <= superpara.RANGE_Y[1]:
 		res.append(gradient.sol_candidate(testdata, step))
 		testdata[0, 0] += superpara.MESH_SIZE_Y / superpara.TEST_RATE
 
-
-	
 	#output**********************  dy / dt = exp(y)  *******************************************
 	#example: dy / dt = exp(y)
 	print "test:", max(res), "\treal:", - np.log(np.exp(- superpara.RANGE_Y[1]) - testdata[1, 0])
@@ -45,10 +41,6 @@ def chkprecision(step):
 
 
 
-
-
-
-
 #*******************************************************************************************
 
 
@@ -56,9 +48,7 @@ def trajectory(input, step):
 	hidden_input = ann.PIPES[step][0].dot(input)[:, 0]
 	hidden_output = gradient.activation.activation_fun(hidden_input)
 	nn_output = ann.PIPES[step][1].dot(hidden_output)
-	return pipes.init(input, step) + (input[1, 0] - superpara.T_START) * nn_output
-
-
+	return pipes.init(input, step) + (input[1, 0] - step * superpara.T_STEP) * nn_output
 
 def reachplot(mesh_y, mesh_t):
 	print '\n'
@@ -71,13 +61,11 @@ def reachplot(mesh_y, mesh_t):
 
 	sample_y = np.arange(superpara.RANGE_Y[0], superpara.RANGE_Y[1] + mesh_y, mesh_y)
 	
-
 	for step in range(superpara.NUM_STEP):
-		superpara.T_START = step * superpara.T_STEP
 		if step == superpara.NUM_STEP - 1:
-			t_step = np.arange(0, superpara.T_STEP + mesh_t, mesh_t) + superpara.T_START 
+			t_step = np.arange(0, superpara.T_STEP + mesh_t, mesh_t) + step * superpara.T_STEP 
 		else:
-			t_step = np.arange(0, superpara.T_STEP, mesh_t) + superpara.T_START
+			t_step = np.arange(0, superpara.T_STEP, mesh_t) + step * superpara.T_STEP
 		h_step = np.zeros(len(t_step))
 		b_step = np.zeros(len(t_step))
 		tp_step = np.zeros(len(t_step))
@@ -101,16 +89,21 @@ def reachplot(mesh_y, mesh_t):
 		bottom.extend(b_step)
 		top.extend(tp_step)
 
+	#plot reachable set
 	#plt.bar(time, np.array(height) + 0.0001, 0.0001, bottom)
 
+	#plot the upper and lower bounds for the example: dy / dt = exp(y)
 	t = np.arange(superpara.RANGE_T[0], superpara.RANGE_T[1] + superpara.PLOT_MESH_T, superpara.PLOT_MESH_T)
 	ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
 	ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
 
+	#the real upper and lower bounds
 	plt.plot(t, ytop)
 	plt.plot(t, ybtm)
+	#the upper and lower bounds given by neural network
 	plt.plot(t, bottom)
 	plt.plot(t, top)
 
+	#show the plots
 	plt.show()
 		

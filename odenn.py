@@ -11,13 +11,11 @@ import pipes
 
 #generate train set data
 for step in range(superpara.NUM_STEP):
-	traindata = trainset.gendata(step)
-
+	#generating training set
+	dataset = trainset.gendata(step)
 	#when start a new time step, do we need to update the weight matrix?
-	backward.itrdescent(traindata, step)
-
+	backward.itrdescent(dataset, step)
 	pipes.addpipe()
-
 	test.chkprecision(step)
 
 #plot

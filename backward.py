@@ -5,6 +5,7 @@ import ann
 import random
 import adaptive
 import chkweight
+import trainset
 
 def error(x, step):
 	return np.square(gradient.temp_res3(x, step))
@@ -99,8 +100,10 @@ def gdescent(dataset, step):
 	return 1 #all epochs finished, return 1, so the loop in itrdescent terminates
 
 def itrdescent(dataset, step):
-	superpara.T_START = step * superpara.T_STEP
 	termination = 0
 	while termination != 1:
-		termination = gdescent(dataset, step)
-
+		try:
+			termination = gdescent(dataset, step)
+		except OverflowError:
+			restart()
+			termination = 0

@@ -30,60 +30,61 @@ def nn_output_prime(x):
 #candidate solution
 def sol_candidate(x, step):
 	#first generate the initial condition for this step
-	return pipes.init(x, step) + (x[1, 0] - superpara.T_START) * nn_output(x) #the initial value is init(x) when t equals T_START
+	return pipes.init(x, step) + (x[1, 0] - step * superpara.T_STEP) * nn_output(x) 
+			#the initial value is init(x) when t equals Time START: step * superpara.T_STEP
 
 #derivative of solution candidate: dy / dt
-def sol_dt(x):
-	return nn_output(x) + (x[1, 0] - superpara.T_START) * nn_output_prime(x)
+def sol_dt(x, step):
+	return nn_output(x) + (x[1, 0] - step * superpara.T_STEP) * nn_output_prime(x)
 
 #partial derivatives of candidate solution w.r.t. the parameters 
 def temp_res1(x):
 	return ann.weight_h_o * hidden_output_prime(x)
 
-def sol_dw_y_h(x): #dy / dwho
-	return x[0, 0] * (x[1, 0] - superpara.T_START) * temp_res1(x)
+def sol_dw_y_h(x, step): #dy / dwho
+	return x[0, 0] * (x[1, 0] - step * superpara.T_STEP) * temp_res1(x)
 
-def sol_dw_t_h(x):
-	return x[1, 0] * (x[1, 0] - superpara.T_START) * temp_res1(x)
+def sol_dw_t_h(x, step):
+	return x[1, 0] * (x[1, 0] - step * superpara.T_STEP) * temp_res1(x)
 
-def sol_dw_b_h(x):
-	return (x[1, 0] - superpara.T_START) * temp_res1(x)
+def sol_dw_b_h(x, step):
+	return (x[1, 0] - step * superpara.T_STEP) * temp_res1(x)
 
-def sol_dw_h_o(x):
-	return (x[1, 0] - superpara.T_START) * hidden_output(x)
+def sol_dw_h_o(x, step):
+	return (x[1, 0] - step * superpara.T_STEP) * hidden_output(x)
 
 #second-order partial derivatives of candidate solution w.r.t. the parameters
 def temp_res2(x):
 	return ann.weight_h_o * ann.weight_t_h * hidden_output_prime_prime(x)
 
-def sol_dtw_y_h(x):
-	return x[0, 0] * temp_res1(x) + x[0, 0] * (x[1, 0] - superpara.T_START) * temp_res2(x)
+def sol_dtw_y_h(x, step):
+	return x[0, 0] * temp_res1(x) + x[0, 0] * (x[1, 0] - step * superpara.T_STEP) * temp_res2(x)
 
-def sol_dtw_t_h(x):
-	return (2.0 * x[1, 0] - superpara.T_START) * temp_res1(x) + x[1, 0] * (x[1, 0] - superpara.T_START) * temp_res2(x)
+def sol_dtw_t_h(x, step):
+	return (2.0 * x[1, 0] - step * superpara.T_STEP) * temp_res1(x) + x[1, 0] * (x[1, 0] - step * superpara.T_STEP) * temp_res2(x)
 
-def sol_dtw_b_h(x):
-	return temp_res1(x) + (x[1, 0] - superpara.T_START) * temp_res2(x)
+def sol_dtw_b_h(x, step):
+	return temp_res1(x) + (x[1, 0] - step * superpara.T_STEP) * temp_res2(x)
 
-def sol_dtw_h_o(x):
-	return hidden_output(x) + (x[1, 0] - superpara.T_START) * hidden_output_prime(x) * ann.weight_t_h
+def sol_dtw_h_o(x, step):
+	return hidden_output(x) + (x[1, 0] - step * superpara.T_STEP) * hidden_output_prime(x) * ann.weight_t_h
 
 #gradient of the cost function (error function)
 def temp_res3(x, step):
-	return sol_dt(x) - ode.ode(sol_candidate(x, step), x[1, 0])
+	return sol_dt(x, step) - ode.ode(sol_candidate(x, step), x[1, 0])
 
 def gradient_dw_y_h(x, step):
-	ode_dwyh = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_y_h(x)	
-	return temp_res3(x, step) * (sol_dtw_y_h(x) - ode_dwyh)
+	ode_dwyh = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_y_h(x, step)	
+	return temp_res3(x, step) * (sol_dtw_y_h(x, step) - ode_dwyh)
 
 def gradient_dw_t_h(x, step):
-	ode_dwth = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_t_h(x)	
-	return temp_res3(x, step) * (sol_dtw_t_h(x) - ode_dwth)
+	ode_dwth = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_t_h(x, step)	
+	return temp_res3(x, step) * (sol_dtw_t_h(x, step) - ode_dwth)
 
 def gradient_dw_b_h(x, step):
-	ode_dw1h = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_b_h(x)	
-	return temp_res3(x, step) * (sol_dtw_b_h(x) - ode_dw1h)
+	ode_dw1h = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_b_h(x, step)	
+	return temp_res3(x, step) * (sol_dtw_b_h(x, step) - ode_dw1h)
 
 def gradient_dw_h_o(x, step):
-	ode_dwho = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_h_o(x)	
-	return temp_res3(x, step) * (sol_dtw_h_o(x) - ode_dwho)
+	ode_dwho = ode.ode_dy(sol_candidate(x, step), x[1, 0]) * sol_dw_h_o(x, step)	
+	return temp_res3(x, step) * (sol_dtw_h_o(x, step) - ode_dwho)

@@ -11,5 +11,4 @@ To solve a problem:
 6. Determine in odenn.py whether you want to check precision or output the reachable set plotting: chkprecision() or reachplot()
 
 
-revise: T_START
-update delta matrix
+#update delta matrix: reverse data set generation, is it useful?

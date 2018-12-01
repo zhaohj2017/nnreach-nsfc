@@ -7,12 +7,10 @@ LEARN_RATE = - 0.01
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
 
-
 NUM_HIDDEN = 5
 
 BATCH_SIZE = 1
 BATCH_NUM = 0
-
 
 MESH_SIZE_Y = 0.01
 MESH_SIZE_T = 0.01
@@ -27,12 +25,14 @@ RANGE_T = [0, LENGTH_T]
 
 T_STEP = 0.3
 NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) #very important
-T_START = 0
 
 TEST_RATE = 10
 
 PLOT_MESH_Y = MESH_SIZE_Y / TEST_RATE
 PLOT_MESH_T = MESH_SIZE_T / TEST_RATE
+
+RAND_SIZE_Y = 100
+RAND_SIZE_T = 40
 
 
 
@@ -70,7 +70,6 @@ BATCH_NUM = 0
 
 T_STEP = 1
 NUM_STEP = int((RANGE_T[1] - RANGE_T[0]) / T_STEP)
-T_START = 0
 """
 
 
@@ -102,7 +101,6 @@ BATCH_NUM = 0
 
 T_STEP = 1
 NUM_STEP = int((RANGE_T[1] - RANGE_T[0]) / T_STEP)
-T_START = 0
 """
 
 
@@ -133,5 +131,4 @@ BATCH_NUM = 0
 
 T_STEP = 1
 NUM_STEP = int((RANGE_T[1] - RANGE_T[0]) / T_STEP)
-T_START = 0
 """
