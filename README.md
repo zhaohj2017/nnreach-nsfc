@@ -11,4 +11,7 @@ To solve a problem:
 6. Determine in odenn.py whether you want to check precision or output the reachable set plotting: chkprecision() or reachplot()
 
 
-#update delta matrix: reverse data set generation, is it useful?
+#update delta matrix: 
+#quasi-newton
+#simulation adaptive step + sensitivey analysis
+#mini-batch: random drop

@@ -102,7 +102,18 @@ def horiplot(mesh_y, mesh_t):
 		
 		trace.append(trace_sy)
 
-	#plot trajectories
+	for trace_sy in trace:
+		plt.plot(time, trace_sy, color = 'b', linestyle = '-')
+
+	#plot the upper and lower bounds for the example: dy / dt = exp(y)
+	t = np.arange(0, superpara.T_STEP * superpara.NUM_STEP + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
+	ytop_ann = trace[0]
+	ybtm_ann = trace[-1]
+	#the real upper and lower bounds
+	plt.plot(t, ytop_ann, color = 'm', linestyle = '-')
+	plt.plot(t, ybtm_ann, color = 'm', linestyle = '-')
+	
+		#plot trajectories
 	for trace_sy in trace:
 		plt.plot(time, trace_sy, color = 'b', linestyle = '-')
 
@@ -114,16 +125,5 @@ def horiplot(mesh_y, mesh_t):
 	plt.plot(t, ytop, color = 'r', linestyle = '-')
 	plt.plot(t, ybtm, color = 'r', linestyle = '-')
 
-	for trace_sy in trace:
-		plt.plot(time, trace_sy, color = 'b', linestyle = '-')
-
-	#plot the upper and lower bounds for the example: dy / dt = exp(y)
-	t = np.arange(0, superpara.T_STEP * superpara.NUM_STEP + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
-	ytop_ann = trace[0]
-	ybtm_ann = trace[-1]
-	#the real upper and lower bounds
-	plt.plot(t, ytop_ann, color = 'c', linestyle = '-')
-	plt.plot(t, ybtm_ann, color = 'c', linestyle = '-')
-	
 	#show the plots
 	plt.show()

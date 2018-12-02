@@ -15,7 +15,6 @@ def init(input, step):
 		output += superpara.T_STEP * nn_output
 	return output
 
-
 def addpipe():
 	w_matrix = ann.weight_matrix.copy()
 	w_h_o = ann.weight_h_o.copy()

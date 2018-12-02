@@ -15,7 +15,6 @@ def act_prime_prime(x):
 	return act_prime(x) - 2.0 * activation_fun(x) * act_prime(x)
 
 
-
 """
 ##****************** sigmoid function *****************
 #sigmoid

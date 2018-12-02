@@ -6,6 +6,7 @@ import random
 import adaptive
 import chkweight
 import trainset
+import activation
 
 def error(x, step):
 	return np.square(gradient.temp_res3(x, step))
@@ -17,20 +18,38 @@ def restart():
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
 	#chkweight.outweight()
-	
+
+def incweight(input, step): # step >= 1
+	hidden_input = ann.PIPES[step - 1][0].dot(input)[:, 0] #the previous pipe weight ann
+	hidden_output_prime = activation.act_prime(hidden_input)
+	weight_product = ann.PIPES[step - 1][0][:, -2] * ann.PIPES[step - 1][1]
+	out_prime = weight_product.dot(hidden_output_prime)
+	delta_out = step * superpara.T_STEP * out_prime
+	hidden_out = activation.activation_fun(hidden_input)
+	delta_weight = delta_out / hidden_out
+	return delta_weight
+
+def init(input, step):
+	output = input[0, 0]
+	tempinput = input.copy()
+	for i in range(step):
+		tempinput[1, 0] = superpara.T_STEP * (i + 1)
+		hidden_input = ann.PIPES[i][0].dot(tempinput)[:, 0]
+		hidden_output = activation.activation_fun(hidden_input)
+		nn_output = ann.PIPES[i][1].dot(hidden_output)
+		output += superpara.T_STEP * nn_output
+	return output
+
 def gdescent(dataset, step):
 	#errors of between two epochs
 	error_pre = 0
 	error_curr = 0
 	error_delta = 0
 
-	if superpara.NUM_STEP > 0:
-		if step == 0:
-			superpara.EPOCHS *= 2
-		elif step == 1:
-			superpara.EPOCHS /= 2
-		else:
-			pass
+	if step >= 1:
+		pass
+
+
 	for epoch in range(superpara.EPOCHS):
 		#shuffle training data 
 		random.shuffle(dataset)
