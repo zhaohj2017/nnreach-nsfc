@@ -24,6 +24,13 @@ def gdescent(dataset, step):
 	error_curr = 0
 	error_delta = 0
 
+	if superpara.NUM_STEP > 0:
+		if step == 0:
+			superpara.EPOCHS *= 2
+		elif step == 1:
+			superpara.EPOCHS /= 2
+		else:
+			pass
 	for epoch in range(superpara.EPOCHS):
 		#shuffle training data 
 		random.shuffle(dataset)
@@ -105,5 +112,6 @@ def itrdescent(dataset, step):
 		try:
 			termination = gdescent(dataset, step)
 		except OverflowError:
+			print "Overflow!!!"
 			restart()
 			termination = 0
