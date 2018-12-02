@@ -1,7 +1,7 @@
 #working 
 #super parameter for example: dy / dt 
 
-EPOCHS = 100
+EPOCHS = 20
 LEARN_RATE = - 0.2
 
 DIMENSON = 1
@@ -23,7 +23,7 @@ RANGE_Y = [0, 1]
 LENGTH_T = 0.3
 RANGE_T = [0, LENGTH_T]
 
-T_STEP = 0.30
+T_STEP = 0.1
 NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) #very important
 
 TEST_RATE = 10
@@ -42,6 +42,8 @@ why!!!!
 
 found the reason: learning rate too small is not good!!! \\eita = 0.01; y = 1 (restart) vs \\eita = 0.05; y = 1
 but with \\eita = 0.01; y \\in [0, 1] (no problem) 
+
+summary: enlarging range_y is good? enlarging learning rate sometimes is also good?
 
 how about enlarging T???
 """

@@ -12,8 +12,8 @@ def gendata(step):
 	superpara.RANGE_T[1] = (step + 1) * superpara.T_STEP
 	
 	#sample point by meshing
-	sample_t = np.arange(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T + superpara.MESH_SIZE_T, superpara.MESH_SIZE_T)
-	sample_y = np.arange(superpara.RANGE_Y[0] - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y + superpara.MESH_SIZE_Y, superpara.MESH_SIZE_Y)
+	sample_t = np.arange(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T + superpara.MESH_SIZE_T * 0.99, superpara.MESH_SIZE_T)
+	sample_y = np.arange(superpara.RANGE_Y[0] - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y + superpara.MESH_SIZE_Y * 0.99, superpara.MESH_SIZE_Y)
 	if len(sample_y) == 0:
 		sample_y = np.array([superpara.RANGE_Y[0]])
 

@@ -21,11 +21,11 @@ def reachplot(mesh_y, mesh_t):
 	bottom = []
 	top = []
 
-	sample_y = np.arange(superpara.RANGE_Y[0], superpara.RANGE_Y[1] + mesh_y, mesh_y)
+	sample_y = np.arange(superpara.RANGE_Y[0], superpara.RANGE_Y[1] + mesh_y * 0.99, mesh_y)
 	
 	for step in range(superpara.NUM_STEP):
 		if step == superpara.NUM_STEP - 1:
-			t_step = np.arange(0, superpara.T_STEP + mesh_t, mesh_t) + step * superpara.T_STEP 
+			t_step = np.arange(0, superpara.T_STEP + mesh_t * 0.99, mesh_t) + step * superpara.T_STEP 
 		else:
 			t_step = np.arange(0, superpara.T_STEP, mesh_t) + step * superpara.T_STEP
 		h_step = np.zeros(len(t_step))
@@ -55,7 +55,7 @@ def reachplot(mesh_y, mesh_t):
 	#plt.bar(time, np.array(height) + 0.0001, 0.0001, bottom)
 
 	#plot the upper and lower bounds for the example: dy / dt = exp(y)
-	t = np.arange(0, superpara.T_STEP * superpara.NUM_STEP + superpara.PLOT_MESH_T, superpara.PLOT_MESH_T)
+	t = np.arange(0, superpara.T_STEP * superpara.NUM_STEP + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
 	ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
 	ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
 
@@ -68,4 +68,3 @@ def reachplot(mesh_y, mesh_t):
 
 	#show the plots
 	plt.show()
-		
