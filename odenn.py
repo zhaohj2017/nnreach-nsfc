@@ -25,7 +25,11 @@ time_end = time.time()
 
 #plot
 plot.horiplot(superpara.PLOT_MESH_Y, superpara.PLOT_MESH_T)
-input()
+
+#pause
+raw_input()
+#for python 3 use 'input()'
+
 plot.vertiplot(superpara.PLOT_MESH_Y, superpara.PLOT_MESH_T)
 
-print('\ntotally cost (excluding plotting):', time_end - time_start)
+print "\ntotally cost (excluding plotting):", time_end - time_start

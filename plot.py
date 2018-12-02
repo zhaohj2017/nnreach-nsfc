@@ -14,7 +14,7 @@ def trajectory(input, step):
 
 def vertiplot(mesh_y, mesh_t):
 	print '\n'
-	print 'plotting...'
+	print 'plotting vertically ...'
 
 	time = []
 	height = []
@@ -61,6 +61,7 @@ def vertiplot(mesh_y, mesh_t):
 	
 	#plot reachable set
 	plt.bar(time, np.array(height), 0.0001, bottom, facecolor = 'g', edgecolor = 'g')
+
 	#show the plots
 	plt.show()
 
@@ -69,7 +70,7 @@ def vertiplot(mesh_y, mesh_t):
 
 def horiplot(mesh_y, mesh_t):
 	print '\n'
-	print 'plotting...'
+	print 'plotting horizontally ...'
 
 	time = []
 	trace = []
@@ -112,6 +113,17 @@ def horiplot(mesh_y, mesh_t):
 	#the real upper and lower bounds
 	plt.plot(t, ytop, color = 'r', linestyle = '-')
 	plt.plot(t, ybtm, color = 'r', linestyle = '-')
+
+	for trace_sy in trace:
+		plt.plot(time, trace_sy, color = 'b', linestyle = '-')
+
+	#plot the upper and lower bounds for the example: dy / dt = exp(y)
+	t = np.arange(0, superpara.T_STEP * superpara.NUM_STEP + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
+	ytop_ann = trace[0]
+	ybtm_ann = trace[-1]
+	#the real upper and lower bounds
+	plt.plot(t, ytop_ann, color = 'c', linestyle = '-')
+	plt.plot(t, ybtm_ann, color = 'c', linestyle = '-')
 	
 	#show the plots
 	plt.show()
