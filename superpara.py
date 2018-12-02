@@ -35,14 +35,13 @@ RAND_SIZE_Y = 100
 RAND_SIZE_T = 31
 
 
-
 """
 very strange: when enlarging the initial set the algorithm even performs better?
 RANGE_Y = [0, 1] vs RANGE_Y = [1, 1]
 why!!!!
 
-found the reason: learning rate too small is not good!!! \eita = 0.01; y = 1 (restart) vs \eita = 0.05; y = 1
-but with \eita = 0.01; y \in [0, 1] (no problem) 
+found the reason: learning rate too small is not good!!! \\eita = 0.01; y = 1 (restart) vs \\eita = 0.05; y = 1
+but with \\eita = 0.01; y \\in [0, 1] (no problem) 
 
 how about enlarging T???
 """
