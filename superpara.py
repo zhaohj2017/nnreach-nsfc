@@ -1,8 +1,8 @@
 #working 
 #super parameter for example: dy / dt 
 
-EPOCHS = 100
-LEARN_RATE = - 0.01
+EPOCHS = 50
+LEARN_RATE = - 0.1
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
@@ -13,7 +13,7 @@ BATCH_SIZE = 1
 BATCH_NUM = 0
 
 MESH_SIZE_Y = 0.01
-MESH_SIZE_T = 0.01
+MESH_SIZE_T = 0.005
 
 EPS_Y = 0.0
 EPS_T = 0.0 # EPS_T should be less than T_STEP
@@ -23,7 +23,7 @@ RANGE_Y = [0, 1]
 LENGTH_T = 0.3
 RANGE_T = [0, LENGTH_T]
 
-T_STEP = 0.3
+T_STEP = 0.30
 NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) #very important
 
 TEST_RATE = 10
@@ -36,6 +36,13 @@ RAND_SIZE_T = 31
 
 
 
+"""
+very strange: when enlarging the initial set the algorithm even performs better?
+RANGE_Y = [0, 1] vs RANGE_Y = [1, 1]
+why!!!!
+
+how about enlarging T???
+"""
 
 
 

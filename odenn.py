@@ -7,6 +7,7 @@ import trainset
 import test
 import chkweight
 import pipes
+import plot
 
 
 #generate train set data
@@ -19,4 +20,4 @@ for step in range(superpara.NUM_STEP):
 	test.chkprecision(step)
 
 #plot
-test.reachplot(superpara.PLOT_MESH_Y, superpara.PLOT_MESH_T)
+plot.reachplot(superpara.PLOT_MESH_Y, superpara.PLOT_MESH_T)

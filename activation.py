@@ -1,7 +1,6 @@
 import numpy as np
 
 
-
 #working for dy / dt = y
 #**************************************
 #sigmoid
