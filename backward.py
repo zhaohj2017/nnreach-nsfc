@@ -27,8 +27,10 @@ def incweight(input, step): # step >= 1
 	nn_out_prime = weight_product.dot(hidden_out_prime)
 	delta_out = step * superpara.T_STEP * nn_out_prime
 	delta_weight = - delta_out / hidden_out
-		"""
-		N_k(y_0, t_k) 
+	"""
+		N_k(y_0, t_k) = N  
+		return delta_weight
+	"""
 	return delta_weight
 
 def gdescent(dataset, step):

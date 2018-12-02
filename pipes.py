@@ -4,7 +4,7 @@ import activation
 import ann
 
 
-def        (input, step):
+def init(input, step):
 	output = input[0, 0]
 	tempinput = input.copy()
 	for i in range(step): # range(0) is empty, so output = input !!!!
