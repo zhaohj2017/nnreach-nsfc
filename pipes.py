@@ -4,10 +4,10 @@ import activation
 import ann
 
 
-def init(input, step):
+def        (input, step):
 	output = input[0, 0]
 	tempinput = input.copy()
-	for i in range(step):
+	for i in range(step): # range(0) is empty, so output = input !!!!
 		tempinput[1, 0] = superpara.T_STEP * (i + 1)
 		hidden_input = ann.PIPES[i][0].dot(tempinput)[:, 0]
 		hidden_output = activation.activation_fun(hidden_input)

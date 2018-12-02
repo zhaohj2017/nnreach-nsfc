@@ -21,35 +21,25 @@ def restart():
 
 def incweight(input, step): # step >= 1
 	hidden_input = ann.PIPES[step - 1][0].dot(input)[:, 0] #the previous pipe weight ann
-	hidden_output_prime = activation.act_prime(hidden_input)
-	weight_product = ann.PIPES[step - 1][0][:, -2] * ann.PIPES[step - 1][1]
-	out_prime = weight_product.dot(hidden_output_prime)
-	delta_out = step * superpara.T_STEP * out_prime
 	hidden_out = activation.activation_fun(hidden_input)
-	delta_weight = delta_out / hidden_out
+	hidden_out_prime = activation.act_prime(hidden_input)
+	weight_product = ann.PIPES[step - 1][0][:, -2] * ann.PIPES[step - 1][1] # weight_t_h * weight_h_o
+	nn_out_prime = weight_product.dot(hidden_out_prime)
+	delta_out = step * superpara.T_STEP * nn_out_prime
+	delta_weight = - delta_out / hidden_out
+		"""
+		N_k(y_0, t_k) 
 	return delta_weight
-
-def init(input, step):
-	output = input[0, 0]
-	tempinput = input.copy()
-	for i in range(step):
-		tempinput[1, 0] = superpara.T_STEP * (i + 1)
-		hidden_input = ann.PIPES[i][0].dot(tempinput)[:, 0]
-		hidden_output = activation.activation_fun(hidden_input)
-		nn_output = ann.PIPES[i][1].dot(hidden_output)
-		output += superpara.T_STEP * nn_output
-	return output
 
 def gdescent(dataset, step):
 	#errors of between two epochs
 	error_pre = 0
 	error_curr = 0
 	error_delta = 0
-
-	if step >= 1:
-		pass
-
-
+	
+	inc_weight_flag = True # define whether at the beginning of each time step, 
+						   # adjust the weight when input the first training data
+	
 	for epoch in range(superpara.EPOCHS):
 		#shuffle training data 
 		random.shuffle(dataset)
@@ -80,6 +70,12 @@ def gdescent(dataset, step):
 
 			#update gradient using data from this mini batch
 			for inputdata in batchset:
+
+				# increment weight when meeting the first data of this step
+				if inc_weight_flag:
+					incweight(inputdata, step)
+					inc_weight_flag = False	
+
 				sum_grad_wyh += gradient.gradient_dw_y_h(inputdata, step)
 				sum_grad_wth += gradient.gradient_dw_t_h(inputdata, step)
 				sum_grad_wbh += gradient.gradient_dw_b_h(inputdata, step)
