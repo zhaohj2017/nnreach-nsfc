@@ -19,19 +19,19 @@ def restart():
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
 	#chkweight.outweight()
 
+"""
+if step > 0:
+	incweight(input, step) # increment weight at the beginning of each time step
 def incweight(input, step): # step >= 1
 	hidden_input = ann.PIPES[step - 1][0].dot(input)[:, 0] #the previous pipe weight ann
 	hidden_out = activation.activation_fun(hidden_input)
 	hidden_out_prime = activation.act_prime(hidden_input)
 	weight_product = ann.PIPES[step - 1][0][:, -2] * ann.PIPES[step - 1][1] # weight_t_h * weight_h_o
 	nn_out_prime = weight_product.dot(hidden_out_prime)
-	delta_out = step * superpara.T_STEP * nn_out_prime
-	delta_weight = - delta_out / hidden_out
-	"""
-		N_k(y_0, t_k) = N  
-		return delta_weight
-	"""
-	return delta_weight
+	delta_out = superpara.T_STEP * nn_out_prime
+	delta_weight = delta_out / sum(hidden_out) * (np.zeros(len(ann.weight_h_o)) + 1)
+	ann.weight_h_o += delta_weight
+"""
 
 def gdescent(dataset, step):
 	#errors of between two epochs
@@ -39,13 +39,10 @@ def gdescent(dataset, step):
 	error_curr = 0
 	error_delta = 0
 	
-	inc_weight_flag = True # define whether at the beginning of each time step, 
-						   # adjust the weight when input the first training data
-	
 	for epoch in range(superpara.EPOCHS):
 		#shuffle training data 
 		random.shuffle(dataset)
-		#dataset.reverse()
+		#dataset.reverse() # (0, 0, Not good) (1, 0, Bad) (0, 1, Not good) (1, 1, Bad)
 
 		#the number of mini batches
 		superpara.BATCH_NUM = len(dataset) / superpara.BATCH_SIZE
@@ -72,12 +69,6 @@ def gdescent(dataset, step):
 
 			#update gradient using data from this mini batch
 			for inputdata in batchset:
-
-				# increment weight when meeting the first data of this step
-				if inc_weight_flag:
-					incweight(inputdata, step)
-					inc_weight_flag = False	
-
 				sum_grad_wyh += gradient.gradient_dw_y_h(inputdata, step)
 				sum_grad_wth += gradient.gradient_dw_t_h(inputdata, step)
 				sum_grad_wbh += gradient.gradient_dw_b_h(inputdata, step)

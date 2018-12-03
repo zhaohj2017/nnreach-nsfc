@@ -17,26 +17,26 @@ def gendata(step):
 	if len(sample_y) == 0:
 		sample_y = np.array([superpara.RANGE_Y[0]])
 
-	"""
-	#uniform distribution
-	sample_t = np.random.uniform(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T, size = (superpara.RAND_SIZE_T, ))
-	sample_t[0] = superpara.RANGE_T[0]
-	sample_t[-1] = superpara.RANGE_T[1]
-
-	sample_y = np.random.uniform(superpara.RANGE_Y[0]  - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y, size = (superpara.RAND_SIZE_Y, ))
-	sample_y[0] = superpara.RANGE_Y[0]
-	sample_y[-1] = superpara.RANGE_Y[1]
-	"""
-
-	for sy in sample_y:
-		for st in sample_t:
+	for st in sample_t:
+		for sy in sample_y:
 			data = np.zeros((superpara.INPUT_SIZE, 1))
 			data[0, 0] = sy
 			data[1, 0] = st
 			data[superpara.INPUT_SIZE - 1, 0] = 1
 			datalist.append(data)
-		#sample_t = np.fliplr([sample_t])[0] #reverse: not helpful? discard!
+		#sample_y = np.fliplr([sample_y])[0] #reverse: not helpful? discard!
 
 	return datalist
 
 	
+"""
+#generating training set from uniform distribution
+#uniform distribution
+sample_t = np.random.uniform(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T, size = (superpara.RAND_SIZE_T, ))
+sample_t[0] = superpara.RANGE_T[0]
+sample_t[-1] = superpara.RANGE_T[1]
+
+sample_y = np.random.uniform(superpara.RANGE_Y[0]  - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y, size = (superpara.RAND_SIZE_Y, ))
+sample_y[0] = superpara.RANGE_Y[0]
+sample_y[-1] = superpara.RANGE_Y[1]
+"""

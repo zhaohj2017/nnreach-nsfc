@@ -15,11 +15,12 @@ time_start = time.time()
 #generate train set data
 for step in range(superpara.NUM_STEP):
 	#generating training set
-	dataset = trainset.gendata(step)
+	dataset = trainset.gendata(step) #generating training set for every time step
 	#when start a new time step, do we need to update the weight matrix?
 	backward.itrdescent(dataset, step)
 	pipes.addpipe()
 	test.chkprecision(step)
+	#chkweight.outweight()
 
 time_end = time.time()
 

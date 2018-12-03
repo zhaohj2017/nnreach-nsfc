@@ -2,29 +2,30 @@
 #super parameter for example: dy / dt 
 
 EPOCHS = 20
-LEARN_RATE = - 0.1
+LEARN_RATE = - 1
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
 
-NUM_HIDDEN = 10
+NUM_HIDDEN = 5
 
-BATCH_SIZE = 1
+BATCH_SIZE = 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
 BATCH_NUM = 0
 
-MESH_SIZE_Y = 0.005
-MESH_SIZE_T = 0.005
+MESH_SIZE_Y = 0.01
+MESH_SIZE_T = 0.01
 
 EPS_Y = 0.0
 EPS_T = 0.0 # EPS_T should be less than T_STEP
 
 RANGE_Y = [0, 1]
 
-LENGTH_T = 0.36
+LENGTH_T = 2
 RANGE_T = [0, LENGTH_T]
 
-T_STEP = 0.02
-NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) #very important
+T_STEP = 2
+NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) # very important
 
 TEST_RATE = 10
 
@@ -32,7 +33,7 @@ PLOT_MESH_Y = MESH_SIZE_Y / TEST_RATE
 PLOT_MESH_T = MESH_SIZE_T / TEST_RATE
 
 RAND_SIZE_Y = 100
-RAND_SIZE_T = 31
+RAND_SIZE_T = 30
 
 
 
@@ -69,7 +70,7 @@ PLOT_MESH_Y = MESH_SIZE_Y / TEST_RATE
 PLOT_MESH_T = MESH_SIZE_T / TEST_RATE
 
 RAND_SIZE_Y = 100
-RAND_SIZE_T = 31
+RAND_SIZE_T = 30
 """
 
 

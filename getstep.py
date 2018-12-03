@@ -6,7 +6,6 @@ def myode(t, y):
     return np.exp(y)
 
 def tsample():
-    res = []
     # sol = solve_ivp(myode, [0, 0.3], [superpara.RANGE_Y[0]])
     # res.extend(sol.t) #extend
 
@@ -14,10 +13,8 @@ def tsample():
     # res.extend(sol.t) #extend
 
     sol = solve_ivp(myode, [0, 0.36], [superpara.RANGE_Y[1]])
-    res.extend(sol.t) #extend
-
-    res = sorted(list(set(res)))
-    return res
+    
+    return sol.t, sol.y
 
 print tsample()
 
