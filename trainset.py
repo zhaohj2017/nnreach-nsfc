@@ -8,13 +8,19 @@ def gendata(step):
 
 	#very important!!!
 	#update T-RANGE
-	superpara.RANGE_T[0] = step * superpara.T_STEP
-	superpara.RANGE_T[1] = (step + 1) * superpara.T_STEP
+	t_start = step * superpara.T_STEP - superpara.EPS_T
+	t_end = (step + 1) * superpara.T_STEP + superpara.EPS_T
 	
+	enlarge_y = step * superpara.ENLARGE_Y
+	y_start = superpara.RANGE_Y[0] - enlarge_y - superpara.EPS_Y
+	y_end = superpara.RANGE_Y[1] + enlarge_y + superpara.EPS_Y
+
 	#sample point by meshing
-	sample_t = np.arange(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T + superpara.MESH_SIZE_T * 0.99, superpara.MESH_SIZE_T)
-	sample_y = np.arange(superpara.RANGE_Y[0] - superpara.EPS_Y, superpara.RANGE_Y[1] + superpara.EPS_Y + superpara.MESH_SIZE_Y * 0.99, superpara.MESH_SIZE_Y)
-	if len(sample_y) == 0:
+	sample_t = np.arange(t_start, t_end + superpara.MESH_SIZE_T * 0.99, superpara.MESH_SIZE_T) 
+		#plus superpara.MESH_SIZE_T * 0.99 to include the right end point
+	sample_y = np.arange(y_start, y_end + superpara.MESH_SIZE_Y * 0.99, superpara.MESH_SIZE_Y)
+
+	if len(sample_y) == 0: # a single point inital y
 		sample_y = np.array([superpara.RANGE_Y[0]])
 
 	for st in sample_t:

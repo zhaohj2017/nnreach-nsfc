@@ -2,18 +2,18 @@
 #super parameter for example: dy / dt 
 
 EPOCHS = 100
-LEARN_RATE = - 0.1
+LEARN_RATE = - 0.5
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
 
-NUM_HIDDEN = 50
+NUM_HIDDEN = 5
 
-BATCH_SIZE = 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
 BATCH_NUM = 0
 
-MESH_SIZE_Y = 0.1
+MESH_SIZE_Y = 0.05
 MESH_SIZE_T = 0.1
 
 EPS_Y = 0.0
@@ -24,7 +24,11 @@ RANGE_Y = [0, 1]
 LENGTH_T = 2
 RANGE_T = [0, LENGTH_T]
 
-T_STEP = 2
+ENLARGE_Y = MESH_SIZE_Y
+ENLARGE_T = MESH_SIZE_T
+
+
+T_STEP = 1
 NUM_STEP = int(round((RANGE_T[1] - RANGE_T[0]) / T_STEP)) # very important
 
 TEST_RATE = 10

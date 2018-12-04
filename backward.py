@@ -8,11 +8,11 @@ import chkweight
 import trainset
 import activation
 
-def error(x, step):
+def error(x, step): #square of the difference between derivatives
 	return np.square(gradient.temp_res3(x, step))
 
-def restart():
-	ann.weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE)
+def restart(): #reset the working weights
+	ann.weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) #matrix
 	ann.weight_y_h = ann.weight_matrix[:, 0]    			#array (or matrix ?)
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
@@ -32,7 +32,7 @@ def gdescent(dataset, step):
 
 		#the number of mini batches
 		superpara.BATCH_NUM = len(dataset) / superpara.BATCH_SIZE
-		if len(dataset) % superpara.BATCH_SIZE != 0:
+		if len(dataset) % superpara.BATCH_SIZE != 0: #the remaining data, not a whole batch
 			superpara.BATCH_NUM += 1
 
 		#error of current epoch
@@ -54,6 +54,7 @@ def gdescent(dataset, step):
 			error_batch = 0
 
 			#update gradient using data from this mini batch
+			#is there a fast matrix operation for this loop?
 			for inputdata in batchset:
 				sum_grad_wyh += gradient.gradient_dw_y_h(inputdata, step)
 				sum_grad_wth += gradient.gradient_dw_t_h(inputdata, step)
@@ -83,20 +84,17 @@ def gdescent(dataset, step):
 
 		#update errors between two adjacent epochs
 		error_pre = error_curr
-		error_curr = np.sqrt(error_epoch / len(dataset) / 2.0)	#average error, mean and squared
-		#error_curr = error_epoch 					#sum error
+		error_curr = np.sqrt(error_epoch / len(dataset))	#average error, mean and squared
 		error_delta = np.abs(error_curr - error_pre)
 
 		#output
 		print "error_curr:", error_curr, "error_pre:", error_pre, "error_delta:", error_delta, "rate: ", superpara.LEARN_RATE, "\n"
-
 
 		if adaptive.jump(error_curr, error_delta) == 0:
 			restart() #reset the weight matrix
 			return 0  #restart from epoch 0
 
 		adaptive.adjust(error_curr, error_delta) #adjust learning rate
-		
 		
 	return 1 #all epochs finished, return 1, so the loop in itrdescent terminates
 
@@ -105,7 +103,7 @@ def itrdescent(dataset, step):
 	while termination != 1:
 		try:
 			termination = gdescent(dataset, step)
-		except OverflowError:
+		except OverflowError: #will this work???
 			print "Overflow!!!"
 			restart()
 			termination = 0
