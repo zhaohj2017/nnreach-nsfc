@@ -11,6 +11,8 @@ To solve a problem:
 6. Modify in plot.py the plot of real upper and lower bounds
 
 
+#revise plot-vertically !!!
+
 #update delta matrix: not helpful
 #quasi-newton: to be implemented
 #simulation adaptive step + sensitivey analysis

@@ -2,6 +2,9 @@ from scipy.integrate import solve_ivp
 import numpy as np
 import superpara
 
+#solve ode using RK45 for sampling points
+#this file is currently not used
+
 def myode(t, y):
     return np.exp(y)
 

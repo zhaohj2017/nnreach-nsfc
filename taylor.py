@@ -1,3 +1,4 @@
+#this file is used to compare with taylor expansion for dy / dt = exp(y)
 import numpy as np
 import matplotlib.pyplot as plt
 import superpara

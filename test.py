@@ -43,12 +43,12 @@ def chkprecision(step):
 		res.append(trajectory(testdata, step)) #call trajectory
 		testdata[0, 0] += superpara.PLOT_MESH_Y # test points should be a lot more than training points
 
-	#example: dy / dt = y: the closed form solution range at the right end of t
-	#compared with the range of computed pipes at the right end of t
-	print "test:", max(res), "\treal:", (superpara.RANGE_Y[1]) * np.exp(testdata[1, 0]) #RANGE_T[1]
-	print "test:", min(res), "\treal:", (superpara.RANGE_Y[0]) * np.exp(testdata[1, 0]) #RANGE_T[1]
+	#working...
+	#output**********************  dy / dt = exp(y)  *******************************************
+	#example: dy / dt = exp(y)
+	print "test:", max(res), "\treal:", - np.log(np.exp(- superpara.RANGE_Y[1]) - testdata[1, 0])
+	print "test:", min(res), "\treal:", - np.log(np.exp(- superpara.RANGE_Y[0]) - testdata[1, 0])
 	print ""
-
 
 
 	"""

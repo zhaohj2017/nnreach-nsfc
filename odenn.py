@@ -16,9 +16,11 @@ time_start = time.time()
 for step in range(superpara.NUM_STEP):
 	#generating training set
 	dataset = trainset.gendata(step) #generating training set for every time step
-	#when start a new time step, do we need to update the weight matrix?
+	#stochastic gradient descent
 	backward.itrdescent(dataset, step)
+	#learned a pipe segment
 	pipes.addpipe()
+	#check the precision for this step
 	test.chkprecision(step)
 	#chkweight.outweight()
 

@@ -3,6 +3,7 @@ import superpara
 
 ##set the initial weights
 ##standard normal distribution
+#these are the working weights that are updated during the learning process
 weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE)
 
 weight_y_h = weight_matrix[:, 0]    			#array (or matrix ?)
