@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import superpara
 
 def ode(y, t):
     return y + np.exp(y) * t + np.exp(2 * y) * np.power(t, 2) / 2 + np.exp(3 * y) * np.power(t, 3) / 3 \
@@ -9,12 +10,20 @@ def ode(y, t):
     + np.exp(10 * y) * np.power(t, 10) / 10 + np.exp(11 * y) * np.power(t, 11) / 11
 
 
-sample_t = np.arange(0, 0.36, 0.02)
+sample_t = np.arange(0, 0.36, 0.001)
 
 sample_y_t = ode(1, sample_t)
 sample_y_b = ode(0, sample_t)
 
 plt.plot(sample_t, sample_y_b, color = 'r', linestyle = '-')
 plt.plot(sample_t, sample_y_t, color = 'r', linestyle = '-')
+
+#plot the real upper and lower bounds
+t = np.arange(0,0.36, 0.001)
+ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
+ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
+plt.plot(t, ytop, color = 'b', linestyle = '-')
+plt.plot(t, ybtm, color = 'b', linestyle = '-')
+
 
 plt.show()

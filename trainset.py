@@ -28,8 +28,12 @@ def gendata(step):
 
 	return datalist
 
+
+
+
 	
 """
+#obsolete
 #generating training set from uniform distribution
 #uniform distribution
 sample_t = np.random.uniform(superpara.RANGE_T[0] - superpara.EPS_T, superpara.RANGE_T[1] + superpara.EPS_T, size = (superpara.RAND_SIZE_T, ))

@@ -1,20 +1,20 @@
 #working 
 #super parameter for example: dy / dt 
 
-EPOCHS = 20
-LEARN_RATE = - 1
+EPOCHS = 100
+LEARN_RATE = - 0.1
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
 
-NUM_HIDDEN = 5
+NUM_HIDDEN = 50
 
-BATCH_SIZE = 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+BATCH_SIZE = 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 
 BATCH_NUM = 0
 
-MESH_SIZE_Y = 0.01
-MESH_SIZE_T = 0.01
+MESH_SIZE_Y = 0.1
+MESH_SIZE_T = 0.1
 
 EPS_Y = 0.0
 EPS_T = 0.0 # EPS_T should be less than T_STEP

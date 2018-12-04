@@ -19,20 +19,6 @@ def restart():
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
 	#chkweight.outweight()
 
-"""
-if step > 0:
-	incweight(input, step) # increment weight at the beginning of each time step
-def incweight(input, step): # step >= 1
-	hidden_input = ann.PIPES[step - 1][0].dot(input)[:, 0] #the previous pipe weight ann
-	hidden_out = activation.activation_fun(hidden_input)
-	hidden_out_prime = activation.act_prime(hidden_input)
-	weight_product = ann.PIPES[step - 1][0][:, -2] * ann.PIPES[step - 1][1] # weight_t_h * weight_h_o
-	nn_out_prime = weight_product.dot(hidden_out_prime)
-	delta_out = superpara.T_STEP * nn_out_prime
-	delta_weight = delta_out / sum(hidden_out) * (np.zeros(len(ann.weight_h_o)) + 1)
-	ann.weight_h_o += delta_weight
-"""
-
 def gdescent(dataset, step):
 	#errors of between two epochs
 	error_pre = 0
@@ -123,3 +109,22 @@ def itrdescent(dataset, step):
 			print "Overflow!!!"
 			restart()
 			termination = 0
+
+
+
+
+"""
+##obsolete: increment weight is not helpful
+
+if step > 0:
+	incweight(input, step) # increment weight at the beginning of each time step
+def incweight(input, step): # step >= 1
+	hidden_input = ann.PIPES[step - 1][0].dot(input)[:, 0] #the previous pipe weight ann
+	hidden_out = activation.activation_fun(hidden_input)
+	hidden_out_prime = activation.act_prime(hidden_input)
+	weight_product = ann.PIPES[step - 1][0][:, -2] * ann.PIPES[step - 1][1] # weight_t_h * weight_h_o
+	nn_out_prime = weight_product.dot(hidden_out_prime)
+	delta_out = superpara.T_STEP * nn_out_prime
+	delta_weight = delta_out / sum(hidden_out) * (np.zeros(len(ann.weight_h_o)) + 1)
+	ann.weight_h_o += delta_weight
+"""
