@@ -6,10 +6,10 @@ import ann
 #working
 #***************** dy / dt = exp(y) *******************
 def ode(y, t):
-	return np.exp(y) # dy / dt = exp(y)
+	return 2 * t # dy / dt = exp(y)
 
 def ode_dy(y, t):
-	return np.exp(y) # dy / dy = exp(y)
+	return 0 # dy / dy = exp(y)
 
 
 

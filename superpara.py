@@ -1,7 +1,42 @@
 #working 
 #super parameter for example: dy / dt 
 
+#FIXED for dy / dt = exp(y)!!! data 2018-12-05
+DIMENSON = 1
+INPUT_SIZE = DIMENSON + 2
 
+#the learn parameter
+EPOCHS = 1000000
+LEARN_RATE = - 0.5
+BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+BATCH_NUM = 0
+
+#the network
+NUM_HIDDEN = 5
+
+#the range and sampling granularity
+RANGE_Y = [0, 1]
+LENGTH_T = 1
+RANGE_T = [0, LENGTH_T]
+
+MESH_SIZE_Y = 0.01
+MESH_SIZE_T = 0.01
+
+TEST_FACTOR = 10 #sample ten points for every training points
+PLOT_MESH_Y = MESH_SIZE_Y / TEST_FACTOR
+PLOT_MESH_T = MESH_SIZE_T / TEST_FACTOR
+
+#the time step of flowpipe
+T_STEP = 1
+NUM_STEP = int(round(LENGTH_T / T_STEP)) # very important
+
+#the blowup factor of flowpipe
+ENLARGE_Y = MESH_SIZE_Y
+ENLARGE_T = MESH_SIZE_T
+
+#is it helpful to sample more points???
+EPS_Y = 0.0
+EPS_T = 0.0 # EPS_T should be less than T_STEP
 
 """
 #FIXED for dy / dt = exp(y)!!! data 2018-12-05
