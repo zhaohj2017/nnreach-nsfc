@@ -72,7 +72,6 @@ def gdescent(dataset, step):
 			ann.weight_b_h += superpara.LEARN_RATE * sum_grad_wbh
 			ann.weight_h_o += superpara.LEARN_RATE * sum_grad_who
 			"""
-			#update learn rate
 			ann.weight_y_h += superpara.LEARN_RATE * sum_grad_wyh / len(batchset)	#average gradient
 			ann.weight_t_h += superpara.LEARN_RATE * sum_grad_wth / len(batchset)
 			ann.weight_b_h += superpara.LEARN_RATE * sum_grad_wbh / len(batchset)
