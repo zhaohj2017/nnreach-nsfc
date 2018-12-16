@@ -4,14 +4,14 @@ import ann
 
 
 #working
-#***************** dy / dt = exp(y) *******************
+#***************** dy / dt = y *******************
+#ode
 def ode(y, t):
-	return 2 * t # dy / dt = exp(y)
+	return y # dy / dt = y
 
+#ode_derivative
 def ode_dy(y, t):
-	return 0 # dy / dy = exp(y)
-
-
+	return 1 # dy / dy = 1
 
 
 
@@ -25,8 +25,6 @@ def ode(y, t):
 def ode_dy(y, t):
 	return 1 # dy / dy = 1
 """
-
-
 
 
 """

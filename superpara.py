@@ -1,13 +1,11 @@
 #working 
 #super parameter for example: dy / dt 
-
-#FIXED for dy / dt = exp(y)!!! data 2018-12-05
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
 
 #the learn parameter
-EPOCHS = 1000000
-LEARN_RATE = - 0.5
+EPOCHS = 10
+LEARN_RATE = 0.1
 BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 BATCH_NUM = 0
 
@@ -38,6 +36,11 @@ ENLARGE_T = MESH_SIZE_T
 EPS_Y = 0.0
 EPS_T = 0.0 # EPS_T should be less than T_STEP
 
+
+#****************************the following are fixed!!!*****************************************************
+
+
+
 """
 #FIXED for dy / dt = exp(y)!!! data 2018-12-05
 DIMENSON = 1
@@ -45,7 +48,7 @@ INPUT_SIZE = DIMENSON + 2
 
 #the learn parameter
 EPOCHS = 20
-LEARN_RATE = - 0.2
+LEARN_RATE = 0.2
 BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 BATCH_NUM = 0
 
@@ -87,7 +90,7 @@ INPUT_SIZE = DIMENSON + 2
 
 #the learn parameter
 EPOCHS = 100
-LEARN_RATE = - 0.1
+LEARN_RATE = 0.1
 BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 BATCH_NUM = 0
 
@@ -124,7 +127,7 @@ EPS_T = 0.0 # EPS_T should be less than T_STEP
 """
 # FIXED!!! for dy / dt = exp(y)
 EPOCHS = 20
-LEARN_RATE = - 0.2
+LEARN_RATE = 0.2
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
@@ -183,7 +186,7 @@ how about enlarging T???
 #comparison with Flow*
 
 EPOCHS = 10
-LEARN_RATE = -1
+LEARN_RATE = 1
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
@@ -214,7 +217,7 @@ NUM_STEP = int((RANGE_T[1] - RANGE_T[0]) / T_STEP)
 
 #super parameter for example: dy / dt = y
 EPOCHS = 10
-LEARN_RATE = - 1
+LEARN_RATE = 1
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
@@ -244,7 +247,7 @@ NUM_STEP = int((RANGE_T[1] - RANGE_T[0]) / T_STEP)
 """******* FIXED for fast sigmoid with dy / dt = y **************
 EPOCHS = 3
 
-LEARN_RATE = - 0.18
+LEARN_RATE = 0.18
 
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2

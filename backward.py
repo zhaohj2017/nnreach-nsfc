@@ -67,16 +67,15 @@ def gdescent(dataset, step):
 
 			#update weight using gradient from this mini batch (average over the batch data)
 			"""
-			ann.weight_y_h += superpara.LEARN_RATE * sum_grad_wyh			#sum gradient
-			ann.weight_t_h += superpara.LEARN_RATE * sum_grad_wth
-			ann.weight_b_h += superpara.LEARN_RATE * sum_grad_wbh
-			ann.weight_h_o += superpara.LEARN_RATE * sum_grad_who
+			ann.weight_y_h += (- superpara.LEARN_RATE) * sum_grad_wyh			#sum gradient
+			ann.weight_t_h += (- superpara.LEARN_RATE) * sum_grad_wth
+			ann.weight_b_h += (- superpara.LEARN_RATE) * sum_grad_wbh
+			ann.weight_h_o += (- superpara.LEARN_RATE) * sum_grad_who
 			"""
-			#update learn rate
-			ann.weight_y_h += superpara.LEARN_RATE * sum_grad_wyh / len(batchset)	#average gradient
-			ann.weight_t_h += superpara.LEARN_RATE * sum_grad_wth / len(batchset)
-			ann.weight_b_h += superpara.LEARN_RATE * sum_grad_wbh / len(batchset)
-			ann.weight_h_o += superpara.LEARN_RATE * sum_grad_who / len(batchset)
+			ann.weight_y_h += (- superpara.LEARN_RATE) * sum_grad_wyh / len(batchset)	#average gradient
+			ann.weight_t_h += (- superpara.LEARN_RATE) * sum_grad_wth / len(batchset)
+			ann.weight_b_h += (- superpara.LEARN_RATE) * sum_grad_wbh / len(batchset)
+			ann.weight_h_o += (- superpara.LEARN_RATE) * sum_grad_who / len(batchset)
 
 			#chkweight.outweight()
 

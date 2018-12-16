@@ -9,6 +9,7 @@ import chkweight
 import pipes
 import plot
 import time
+import bfgs
 
 time_start = time.time()
 
@@ -17,7 +18,7 @@ for step in range(superpara.NUM_STEP):
 	#generating training set
 	dataset = trainset.gendata(step) #generating training set for every time step
 	#stochastic gradient descent
-	backward.itrdescent(dataset, step)
+	bfgs.itrdescent(dataset, step)
 	#learned a pipe segment
 	pipes.addpipe()
 	#check the precision for this step

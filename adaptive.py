@@ -15,7 +15,7 @@ def jump(curr, delta):
 def adjust(curr, delta):
 	"""
 	if curr < 1e-1 and delta < 1e-2: #continue to the next epoch
-		superpara.LEARN_RATE = - 1
+		superpara.LEARN_RATE = 1
 		superpara.BATCH_SIZE = 1
 	"""
 	pass
@@ -40,7 +40,7 @@ def jump(curr, delta):
 #rate adjustment for example: dy/dt = exp(y)
 def adjust(curr, delta):
 	if curr < 1e-1 and delta < 1e-2: #continue to the next epoch
-		superpara.LEARN_RATE = - 1
+		superpara.LEARN_RATE = 1
 		superpara.BATCH_SIZE = 1	
 """
 
@@ -59,7 +59,7 @@ def jump(curr, delta):
 #rate adjustment for example: dy / dt = y
 def adjust(curr, delta):
 	if curr < 1e-1 and delta < 1e-2: #continue to the next epoch
-		superpara.LEARN_RATE = - 1
+		superpara.LEARN_RATE = 1
 		superpara.BATCH_SIZE = 1
 """
 
@@ -78,6 +78,6 @@ def jump(curr, delta):
 #rate adjustment for example: dy / dt = y
 def adjust(curr, delta):
 	if curr < 0.005: #continue to the next epoch
-		superpara.LEARN_RATE = - 0.18
+		superpara.LEARN_RATE = 0.18
 		superpara.BATCH_SIZE = 1
 """
