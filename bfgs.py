@@ -50,7 +50,8 @@ def restart(): #reset variables and restart from epoch 0
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
 	#chkweight.outweight()
 
-
+def linsearch():
+	pass
 
 def gdescent(dataset, step):
 	#errors between two epochs

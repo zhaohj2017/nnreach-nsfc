@@ -6,7 +6,7 @@ INPUT_SIZE = DIMENSON + 2
 #the learn parameter
 EPOCHS = 100
 LEARN_RATE = 0.1
-BATCH_SIZE = 200                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 BATCH_NUM = 0
 
 #the network
@@ -14,7 +14,7 @@ NUM_HIDDEN = 5
 
 #the range and sampling granularity
 RANGE_Y = [0, 1]
-LENGTH_T = 1
+LENGTH_T = 3
 RANGE_T = [0, LENGTH_T]
 
 MESH_SIZE_Y = 0.1
