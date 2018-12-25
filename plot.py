@@ -34,10 +34,10 @@ def horiplot():
 			plt.plot(sample_t, trace_sy, color = 'b', linestyle = '-')
 
 	#working
-	#plot the real upper and lower bounds for the example: dy / dt = y
+	#plot the real upper and lower bounds for the example: dy / dt = exp(y)
 	t = np.arange(0, superpara.LENGTH_T + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
-	ytop = (superpara.RANGE_Y[1]) * np.exp(t)
-	ybtm = (superpara.RANGE_Y[0]) * np.exp(t)
+	ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
+	ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
 	plt.plot(t, ytop, color = 'r', linestyle = '-')
 	plt.plot(t, ybtm, color = 'r', linestyle = '-')
 
@@ -67,8 +67,6 @@ def horiplot():
 	plt.plot(t, ytop, color = 'r', linestyle = '-')
 	plt.plot(t, ybtm, color = 'r', linestyle = '-')
 	"""
-
-
 
 	#show the plots
 	plt.show()

@@ -44,9 +44,10 @@ def chkprecision(step):
 		testdata[0, 0] += superpara.PLOT_MESH_Y # test points should be a lot more than training points
 
 	#working...
-	#example: dy / dt = y
-	print "test:", max(res), "\treal:", (superpara.RANGE_Y[1]) * np.exp(testdata[1, 0])
-	print "test:", min(res), "\treal:", (superpara.RANGE_Y[0]) * np.exp(testdata[1, 0])
+	#output**********************  dy / dt = exp(y)  *******************************************
+	#example: dy / dt = exp(y)
+	print "test:", max(res), "\treal:", - np.log(np.exp(- superpara.RANGE_Y[1]) - testdata[1, 0])
+	print "test:", min(res), "\treal:", - np.log(np.exp(- superpara.RANGE_Y[0]) - testdata[1, 0])
 	print ""
 
 

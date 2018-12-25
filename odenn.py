@@ -18,11 +18,11 @@ for step in range(superpara.NUM_STEP):
 	#generating training set
 	dataset = trainset.gendata(step) #generating training set for every time step
 	#stochastic gradient descent
-	#backward.itrdescent(dataset, step)
+	#backward.itrdescent(dataset, step) #first sgd, and then bfgs
 
-	#bfgs
-	superpara.EPOCHS = 100
-	superpara.BATCH_SIZE = len(dataset) / 1
+	#bfgs: only works in batch mode
+	superpara.EPOCHS = 1000
+	superpara.BATCH_SIZE = len(dataset)
 	bfgs.itrdescent(dataset, step)
 
 	#learned a pipe segment
