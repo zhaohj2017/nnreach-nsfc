@@ -22,7 +22,7 @@ for step in range(superpara.NUM_STEP):
 
 	#bfgs
 	superpara.EPOCHS = 100
-	superpara.BATCH_SIZE = len(dataset) / 10
+	superpara.BATCH_SIZE = len(dataset) / 1
 	bfgs.itrdescent(dataset, step)
 
 	#learned a pipe segment

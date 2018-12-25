@@ -19,9 +19,13 @@ def gendata(step):
 	y_end = superpara.RANGE_Y[1] + enlarge_y + superpara.EPS_Y
 	sample_y = np.arange(y_start, y_end + superpara.MESH_SIZE_Y * 0.99, superpara.MESH_SIZE_Y)
 
+	""" obsolete??? not sure!!!
 	if len(sample_y) == 0: # a single point inital y
 		sample_y = np.array([superpara.RANGE_Y[0]])
+	"""
 
+
+	#sample data generation by gridding
 	for st in sample_t:
 		for sy in sample_y:
 			data = np.zeros((superpara.INPUT_SIZE, 1))
@@ -30,6 +34,43 @@ def gendata(step):
 			data[superpara.INPUT_SIZE - 1, 0] = 1
 			datalist.append(data)
 		#sample_y = np.fliplr([sample_y])[0] #reverse: not helpful? discard!
+
+	
+	"""
+	#sample data generation by uniform distribution
+	data_size = len(sample_t) * len(sample_y)
+	for i in np.arange(data_size):
+		data = np.zeros((superpara.INPUT_SIZE, 1))
+		data[0, 0] = np.random.uniform(y_start, y_end)
+		data[1, 0] = np.random.uniform(t_start, t_end)
+		data[superpara.INPUT_SIZE - 1, 0] = 1
+		datalist.append(data)
+
+	corner1 = np.zeros((superpara.INPUT_SIZE, 1))
+	corner1[0, 0] = superpara.RANGE_Y[0]
+	corner1[1, 0] = superpara.RANGE_T[0]
+	corner1[superpara.INPUT_SIZE - 1, 0] = 1
+
+	corner2 = np.zeros((superpara.INPUT_SIZE, 1))
+	corner2[0, 0] = superpara.RANGE_Y[0]
+	corner2[1, 0] = superpara.RANGE_T[1]
+	corner2[superpara.INPUT_SIZE - 1, 0] = 1
+
+	corner3 = np.zeros((superpara.INPUT_SIZE, 1))
+	corner3[0, 0] = superpara.RANGE_Y[1]
+	corner3[1, 0] = superpara.RANGE_T[0]
+	corner3[superpara.INPUT_SIZE - 1, 0] = 1
+
+	corner4 = np.zeros((superpara.INPUT_SIZE, 1))
+	corner4[0, 0] = superpara.RANGE_Y[1]
+	corner4[1, 0] = superpara.RANGE_T[1]
+	corner4[superpara.INPUT_SIZE - 1, 0] = 1
+
+	datalist.append(corner1)
+	datalist.append(corner2)
+	datalist.append(corner3)
+	datalist.append(corner4)
+	"""
 
 	return datalist
 
