@@ -8,26 +8,6 @@ import chkweight
 import trainset
 import activation
 
-"""
-how to revise???
-
-1. randomly choose a small batch (size defined in superpara)
-2. on this small batch, use full batch bfgs iteration to update weights
-3. then after a number of iteration of updating, stop
-4. randomly choose another small batch, reset bfgs settings but keep the weights
-5. start bfgs on the new batch using full dataset
-6. error? delta_error? 
-
-7. in bfgs, implement linear search: binary search?
-8. revise gradient: do not use global variables, but use method call parameters
-	8.1. revise the other places that call gradient.py functions
-9.
-
-
-"""
-
-
-
 
 
 #global loop variables for bfgs quasi-newton

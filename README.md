@@ -28,3 +28,5 @@ To solve a problem:
 
 #quasi-newton: batches mode
 #uniform distribution: reimplement. other distribution according to the slopes?
+
+#why exception handling do not work?
