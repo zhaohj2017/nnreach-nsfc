@@ -9,7 +9,10 @@ def gendata(step):
 	#very important!!!
 	#update T-RANGE
 	t_start = step * superpara.T_STEP - superpara.EPS_T
-	t_end = (step + 1) * superpara.T_STEP + superpara.EPS_T
+	if (step + 1) * superpara.T_STEP > superpara.RANGE_T[1]:
+		t_end = superpara.RANGE_T[1] + superpara.EPS_T
+	else:
+		t_end = (step + 1) * superpara.T_STEP + superpara.EPS_T
 	#sample point by meshing
 	sample_t = np.arange(t_start, t_end + superpara.MESH_SIZE_T * 0.99, superpara.MESH_SIZE_T) 
 		#plus superpara.MESH_SIZE_T * 0.99 to include the right end point
@@ -35,6 +38,7 @@ def gendata(step):
 			datalist.append(data)
 		#sample_y = np.fliplr([sample_y])[0] #reverse: not helpful? discard!
 
+	
 	
 	"""
 	#sample data generation by uniform distribution

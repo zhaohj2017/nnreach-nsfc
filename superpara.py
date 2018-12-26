@@ -25,12 +25,14 @@ PLOT_MESH_Y = MESH_SIZE_Y / TEST_FACTOR
 PLOT_MESH_T = MESH_SIZE_T / TEST_FACTOR
 
 #the time step of flowpipe
-T_STEP = 0.36
+T_STEP = 0.2
 NUM_STEP = int(round(LENGTH_T / T_STEP)) # very important
+if LENGTH_T - NUM_STEP * T_STEP > 1e-3 * T_STEP:
+    NUM_STEP += 1
 
 #the blowup factor of flowpipe
 ENLARGE_Y = MESH_SIZE_Y
-ENLARGE_T = MESH_SIZE_T
+ENLARGE_T = MESH_SIZE_T * 0
 
 #is it helpful to sample more points???
 EPS_Y = 0.0

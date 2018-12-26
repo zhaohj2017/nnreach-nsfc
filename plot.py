@@ -19,7 +19,10 @@ def horiplot():
 		sample_y = np.arange(y_start, y_end + superpara.PLOT_MESH_Y * 0.99, superpara.PLOT_MESH_Y)
 		
 		t_start = step * superpara.T_STEP
-		t_end = (step + 1) * superpara.T_STEP
+		if (step + 1) * superpara.T_STEP > superpara.RANGE_T[1]:
+			t_end = superpara.RANGE_T[1]
+		else:
+			t_end = (step + 1) * superpara.T_STEP
 		sample_t = np.arange(t_start, t_end + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T) 
 
 		trace_sy = np.zeros(len(sample_t))
