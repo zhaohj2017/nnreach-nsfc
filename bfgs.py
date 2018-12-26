@@ -40,8 +40,8 @@ error_pre = 0 #error of the previous epoch
 error_curr = 0 #error of the current epoch
 error_delta = 0 #difference between the error of the current and previous epochs
 
-def error(x, step): #square of the difference between derivatives: cost function, square error
-	return np.square(gradient.temp_res3(x, step))
+def error(w_matrix, w_ho, input, step): #square of the difference between derivatives: cost function, square error
+	return np.square(gradient.temp_res3(w_matrix, w_ho, input, step))
 
 def restart(): #reset variables and restart from epoch 0
 	#loop variables for bfgs quasi-newton 
@@ -115,13 +115,13 @@ def gdescent(dataset, step):
 			#update weights using data from this mini batch
 			#a bfgs quasi-newton implementation, rather than gradient descent
 			for inputdata in batchset:
-				sum_grad_wyh += gradient.gradient_dw_y_h(inputdata, step)
-				sum_grad_wth += gradient.gradient_dw_t_h(inputdata, step)
-				sum_grad_wbh += gradient.gradient_dw_b_h(inputdata, step)
-				sum_grad_who += gradient.gradient_dw_h_o(inputdata, step)
+				sum_grad_wyh += gradient.gradient_dw_y_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+				sum_grad_wth += gradient.gradient_dw_t_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+				sum_grad_wbh += gradient.gradient_dw_b_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+				sum_grad_who += gradient.gradient_dw_h_o(ann.weight_matrix, ann.weight_h_o, inputdata, step)
 
 				#update error of this mini batch
-				error_batch += error(inputdata, step)
+				error_batch += error(ann.weight_matrix, ann.weight_h_o, inputdata, step)
 				#print "\terror_batch", error_batch
 
             #compute the average gradient for this mini batch, its a column vector

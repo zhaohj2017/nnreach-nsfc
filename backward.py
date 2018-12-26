@@ -8,8 +8,8 @@ import chkweight
 import trainset
 import activation
 
-def error(x, step): #square of the difference between derivatives: cost function, square error
-	return np.square(gradient.temp_res3(x, step))
+def error(w_matrix, w_ho, input, step): #square of the difference between derivatives: cost function, square error
+	return np.square(gradient.temp_res3(w_matrix, w_ho, input, step))
 
 def restart(): #reset the working weights
 	ann.weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) #matrix
@@ -56,13 +56,13 @@ def gdescent(dataset, step):
 			#update gradient using data from this mini batch
 			#is there a fast matrix operation for this loop?
 			for inputdata in batchset:
-				sum_grad_wyh += gradient.gradient_dw_y_h(inputdata, step)
-				sum_grad_wth += gradient.gradient_dw_t_h(inputdata, step)
-				sum_grad_wbh += gradient.gradient_dw_b_h(inputdata, step)
-				sum_grad_who += gradient.gradient_dw_h_o(inputdata, step)
+				sum_grad_wyh += gradient.gradient_dw_y_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+				sum_grad_wth += gradient.gradient_dw_t_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+				sum_grad_wbh += gradient.gradient_dw_b_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+				sum_grad_who += gradient.gradient_dw_h_o(ann.weight_matrix, ann.weight_h_o, inputdata, step)
 
 				#update error of this mini batch
-				error_batch += error(inputdata, step)
+				error_batch += error(ann.weight_matrix, ann.weight_h_o, inputdata, step)
 				#print "\terror_batch", error_batch
 
 			#update weight using gradient from this mini batch (average over the batch data)

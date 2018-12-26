@@ -4,7 +4,7 @@ DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
 
 #the learn parameter
-EPOCHS = 100
+EPOCHS = 500
 LEARN_RATE = 0.1
 BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 BATCH_NUM = 0
@@ -18,20 +18,20 @@ LENGTH_T = 0.36
 RANGE_T = [0, LENGTH_T]
 
 MESH_SIZE_Y = 0.1
-MESH_SIZE_T = 0.01
+MESH_SIZE_T = 0.02
 
-TEST_FACTOR = 10 #sample ten points for every training points
+TEST_FACTOR = 20 #sample ten points for every training points
 PLOT_MESH_Y = MESH_SIZE_Y / TEST_FACTOR
 PLOT_MESH_T = MESH_SIZE_T / TEST_FACTOR
 
 #the time step of flowpipe
-T_STEP = 0.2
+T_STEP = 0.12
 NUM_STEP = int(round(LENGTH_T / T_STEP)) # very important
-if LENGTH_T - NUM_STEP * T_STEP > 1e-3 * T_STEP:
+if LENGTH_T - NUM_STEP * T_STEP > 1e-3 * T_STEP: #not a whole step
     NUM_STEP += 1
 
 #the blowup factor of flowpipe
-ENLARGE_Y = MESH_SIZE_Y
+ENLARGE_Y = MESH_SIZE_Y * 0
 ENLARGE_T = MESH_SIZE_T * 0
 
 #is it helpful to sample more points???
