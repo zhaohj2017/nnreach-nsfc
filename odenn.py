@@ -37,7 +37,8 @@ for step in range(superpara.NUM_STEP):
 time_end = time.time()
 
 #plot
-plot.horiplot()
+#plot.horiplot()
+plot.vertiplot()
 
 ##pause
 #raw_input() ##for python 3 use 'input()'
