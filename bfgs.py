@@ -46,19 +46,118 @@ def restartweight(): #reset variables and restart from epoch 0
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
-	#chkweight.outweight()
+	#ann.outweight()
 
 def restart():
 	restartweight()
 	restarthesse()
 
-def success(curr, delta):
-	if curr < 1e-4: #error < 0.0001
+def success(curr_error, delta_error): #revise if needed
+	if curr_error < 1e-4: #error < 0.0001
 		print "Success! Stop!"
 		return 1
 
 def linsearch():
-	pass
+	return -superpara.LEARN_RATE
+
+def bfgs(batchset, step):
+	#global variables for bfgs quasi-newton 
+	global HESSE_SIZE
+	global m_hesse
+	global delta_weight
+	global pre_gradient
+
+	#sum of gradient initialization for this mini batch
+	sum_grad_wyh = np.zeros(len(ann.weight_y_h))
+	sum_grad_wth = np.zeros(len(ann.weight_t_h))
+	sum_grad_wbh = np.zeros(len(ann.weight_b_h))
+	sum_grad_who = np.zeros(len(ann.weight_h_o))
+
+	#error for this mini batch
+	error_batch = 0
+
+	#update weights using data from this mini batch
+	#a bfgs quasi-newton implementation, rather than gradient descent
+	for inputdata in batchset:
+		sum_grad_wyh += gradient.gradient_dw_y_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+		sum_grad_wth += gradient.gradient_dw_t_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+		sum_grad_wbh += gradient.gradient_dw_b_h(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+		sum_grad_who += gradient.gradient_dw_h_o(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+		#update error of this mini batch
+		error_batch += error(ann.weight_matrix, ann.weight_h_o, inputdata, step)
+		#print "\terror_batch", error_batch
+
+	#compute the average gradient for this mini batch, it's an array
+	avg_gradient = np.append(sum_grad_wyh / len(batchset), sum_grad_wth / len(batchset))
+	avg_gradient = np.append(avg_gradient, sum_grad_wbh / len(batchset))
+	avg_gradient = np.append(avg_gradient, sum_grad_who / len(batchset))
+	#reshape into a column vector
+	curr_gradient = avg_gradient.reshape(avg_gradient.size, 1)
+
+	#update delta gradient
+	delta_gradient = curr_gradient - pre_gradient
+	#update pre gradient
+	pre_gradient = curr_gradient
+
+	#update rho
+	if delta_gradient[:, 0].dot(delta_weight[:, 0]) == 0:
+		rho = 0
+	else:
+		rho = 1.0 / delta_gradient[:, 0].dot(delta_weight[:, 0]) #exclude the case that the demoninator is zero
+
+	#first update hesse matrix (for the initial loop, delta_weight = 0, so m_hesse is identity)
+	hesse_temp1 = np.eye(HESSE_SIZE) - rho * np.dot(delta_weight, delta_gradient.T)
+	hesse_temp2 = np.dot(hesse_temp1, m_hesse)
+	hesse_temp3 = np.eye(HESSE_SIZE) - rho * np.dot(delta_gradient, delta_weight.T)
+	hesse_temp4 = np.dot(hesse_temp2, hesse_temp3)
+	m_hesse = hesse_temp4 + rho * np.dot(delta_weight, delta_weight.T)
+
+	#then update direction
+	direction = m_hesse.dot(curr_gradient)
+
+	#then update learn rate
+	#update delta parameter
+	delta_weight = linsearch() * direction
+
+	#then update weights
+	ann.weight_y_h += delta_weight[0 : superpara.NUM_HIDDEN, 0] #extract
+	ann.weight_t_h += delta_weight[superpara.NUM_HIDDEN : superpara.NUM_HIDDEN * 2, 0]
+	ann.weight_b_h += delta_weight[superpara.NUM_HIDDEN * 2 : superpara.NUM_HIDDEN * 3, 0]
+	ann.weight_h_o += delta_weight[superpara.NUM_HIDDEN * 3 : direction.size, 0]
+	#ann.outweight()
+
+
+def quasinewton(dataset, step):
+	#errors between two epochs
+	global error_pre
+	global error_curr
+	global error_delta
+
+
+	#the number of mini batches for each epoch
+	superpara.BATCH_NUM = len(dataset) / superpara.BATCH_SIZE
+	if len(dataset) % superpara.BATCH_SIZE != 0: #the remaining data, not a whole batch
+		superpara.BATCH_NUM += 1
+	
+	#start epoch iterations
+	for epoch in range(superpara.EPOCHS):
+		#shuffle training data 
+		random.shuffle(dataset)
+
+		#error of current epoch
+		error_epoch = 0
+		print "epoch:", epoch
+
+		#start batch traversal for this epoch
+		for currbatch in range(superpara.BATCH_NUM):
+			#start bfgs iterations for current minibatch
+			for iteration in range(superpara.BFGS_BATCH_ITR_NUM):
+				print "\tbfgs iteration for this mini batch:", iteration
+				bfgs()
+			
+			#reset hesse matrix for the next current batch
+			#restart bfgs for a new minibatch
+			restarthesse()
 
 def quasinewton(dataset, step):
 	#errors between two epochs
@@ -152,7 +251,7 @@ def quasinewton(dataset, step):
 				ann.weight_t_h += delta_weight[superpara.NUM_HIDDEN : superpara.NUM_HIDDEN * 2, 0]
 				ann.weight_b_h += delta_weight[superpara.NUM_HIDDEN * 2 : superpara.NUM_HIDDEN * 3, 0]
 				ann.weight_h_o += delta_weight[superpara.NUM_HIDDEN * 3 : direction.size, 0]
-				#chkweight.outweight()
+				#ann.outweight()
 
 			#update epoch error using error of this mini batch
 			error_epoch += error_batch
@@ -179,20 +278,3 @@ def itrdescent(dataset, step):
 			print "Run-time error!!!"
 			restart() #update global variables
 			termination = 0 #restart from epoch 0
-
-
-"""
-how to revise???
-
-1. randomly choose a small batch (size defined in superpara)
-2. on this small batch, use full batch bfgs iteration to update weights
-3. then after a number of iteration of updating, stop
-4. randomly choose another small batch, reset bfgs settings but keep the weights
-5. start bfgs on the new batch using full dataset
-6. error? delta_error? 
-
-7. in bfgs, implement linear search: binary search?
-8. revise gradient: do not use global variables, but use method call parameters
-	8.1. revise the other places that call gradient.py functions
-9.
-"""

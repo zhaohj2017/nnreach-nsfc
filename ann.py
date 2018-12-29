@@ -15,3 +15,26 @@ weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
 #the neural network weight computed for the ith (i >= 0) step is stored at index i in PIPES
 PIPES = []
 
+def outweight():
+	global weight_matrix
+	global weight_y_h
+	global weight_t_h
+	global weight_b_h
+	global weight_h_o
+
+	print "The weight matrix"
+	print weight_matrix.T
+
+	print "The weight w.r.t. each input state"
+	print "weight-input-y-hidden"
+	print weight_y_h
+	print "weight-input-t-hidden"
+	print weight_t_h
+	print "bias"
+	print weight_b_h
+
+	print "weight-hidden-output"
+	print weight_h_o
+
+	print ""
+	

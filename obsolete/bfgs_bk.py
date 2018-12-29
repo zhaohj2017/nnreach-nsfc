@@ -48,7 +48,7 @@ def restart(): #reset variables and restart from epoch 0
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
-	#chkweight.outweight()
+	#ann.outweight()
 
 def linsearch():
 	pass
@@ -142,7 +142,7 @@ def gdescent(dataset, step):
 			ann.weight_t_h += delta_parameter[superpara.NUM_HIDDEN : superpara.NUM_HIDDEN * 2, 0]
 			ann.weight_b_h += delta_parameter[superpara.NUM_HIDDEN * 2 : superpara.NUM_HIDDEN * 3, 0]
 			ann.weight_h_o += delta_parameter[superpara.NUM_HIDDEN * 3 : direction.size, 0]
-			#chkweight.outweight()
+			#ann.outweight()
 
 			#update epoch error using error of this mini batch
 			error_epoch += error_batch

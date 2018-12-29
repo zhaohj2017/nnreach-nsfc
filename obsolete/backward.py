@@ -16,7 +16,7 @@ def restart(): #reset the working weights
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
 	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
-	#chkweight.outweight()
+	#ann.outweight()
 
 def gdescent(dataset, step):
 	#errors of between two epochs
@@ -76,7 +76,7 @@ def gdescent(dataset, step):
 			ann.weight_b_h += (- superpara.LEARN_RATE) * sum_grad_wbh / len(batchset)
 			ann.weight_h_o += (- superpara.LEARN_RATE) * sum_grad_who / len(batchset)
 
-			#chkweight.outweight()
+			#ann.outweight()
 
 			#update epoch error using error of this mini batch
 			error_epoch += error_batch

@@ -32,7 +32,7 @@ for step in range(superpara.NUM_STEP):
 	pipes.addpipe()
 	#check the precision for this step
 	test.chkprecision(step)
-	#chkweight.outweight()
+	#ann.outweight()
 
 time_end = time.time()
 
