@@ -3,7 +3,6 @@ import superpara
 import gradient
 import ann
 import random
-import adaptive
 import chkweight
 import trainset
 import activation

@@ -9,6 +9,9 @@ LEARN_RATE = 0.1
 BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 BATCH_NUM = 0
 
+#for bfgs
+BFGS_BATCH_ITR = 2
+
 #the network
 NUM_HIDDEN = 5
 

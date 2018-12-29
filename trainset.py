@@ -26,8 +26,7 @@ def gendata(step):
 	if len(sample_y) == 0: # a single point inital y
 		sample_y = np.array([superpara.RANGE_Y[0]])
 	"""
-
-
+	
 	#sample data generation by gridding
 	for st in sample_t:
 		for sy in sample_y:
