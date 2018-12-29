@@ -12,7 +12,7 @@ import activation
 #learned trajectory, different from sol_candidate in gradient.py
 def trajectory(input, step):
 	#first generate the initial condition for this step
-	return gradient.sol_candidate(ann.PIPES[step][0], ann.PIPES[step][1], input, step) 
+	return gradient.sol_candidate(pipes.PIPES[step][0], pipes.PIPES[step][1], input, step) 
 			#the initial value is init(x) when t equals Time START: step * superpara.T_STEP
 
 #check the precision using the computed pipes and the closed form solutions

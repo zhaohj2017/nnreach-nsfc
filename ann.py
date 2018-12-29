@@ -12,9 +12,6 @@ weight_b_h = weight_matrix[:, -1]    			#array
 
 weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
 
-#the neural network weight computed for the ith (i >= 0) step is stored at index i in PIPES
-PIPES = []
-
 def outweight():
 	global weight_matrix
 	global weight_y_h

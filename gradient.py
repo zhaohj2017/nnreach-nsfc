@@ -4,6 +4,7 @@ import ann
 import activation
 import superpara
 import test
+import pipes
 
 #hidden layer input: return an array; x is a vector
 def hidden_input(w_matrix, input):
@@ -36,7 +37,7 @@ def init(input, step):
 	tempinput = input.copy() # an array
 	for i in range(step): # range(0) is empty, so output = input !!!!
 		tempinput[1, 0] = superpara.T_STEP * (i + 1)
-		output += superpara.T_STEP * nn_output(ann.PIPES[i][0], ann.PIPES[i][1], tempinput)
+		output += superpara.T_STEP * nn_output(pipes.PIPES[i][0], pipes.PIPES[i][1], tempinput)
 	return output
 
 #candidate solution: return a scalar (using the working weights, rather than the weights in pipes)

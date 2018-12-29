@@ -32,4 +32,6 @@ To solve a problem:
 #initial weight randomization???
 #weight regularization
 
+#exception handling
+
 #why exception handling do not work?
