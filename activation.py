@@ -1,6 +1,6 @@
 import numpy as np
 
-#working for dy / dt = y
+#working for dy / dt = exp(y)
 #**************************************
 #sigmoid
 def activation_fun(x): #act on each element in a matrix
@@ -13,7 +13,6 @@ def act_prime(x):
 #activation prime prime
 def act_prime_prime(x):
 	return act_prime(x) - 2.0 * activation_fun(x) * act_prime(x)
-
 
 """
 ##****************** sigmoid function *****************

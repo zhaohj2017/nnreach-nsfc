@@ -29,4 +29,7 @@ To solve a problem:
 #quasi-newton: batches mode
 #uniform distribution: reimplement. other distribution according to the slopes?
 
+#initial weight randomization???
+#weight regularization
+
 #why exception handling do not work?
