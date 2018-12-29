@@ -148,7 +148,8 @@ def quasinewton(dataset, step):
 
 		#error of current epoch
 		error_epoch = 0
-		print "epoch:", epoch
+		if superpara.PRINT_MINI == 1:
+			print "epoch:", epoch
 
 		#start batch traversal for this epoch
 		for currbatch in range(superpara.BATCH_NUM):		
@@ -158,8 +159,10 @@ def quasinewton(dataset, step):
 
 			#start bfgs iterations for current minibatch
 			for iteration in range(superpara.BFGS_BATCH_ITR_NUM):
+				iteration = iteration
 				error_batch = bfgs(batchset, step)
-				print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", error_batch / len(batchset)
+				if superpara.PRINT_MINI == 1:
+					print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", error_batch / len(batchset), "rate: ", superpara.LEARN_RATE
 			#reset hesse matrix for the next current batch
 			#restart bfgs for a new minibatch
 			restarthesse()
@@ -172,11 +175,12 @@ def quasinewton(dataset, step):
 		error_curr = np.sqrt(error_epoch / len(dataset))	#average error, mean and squared
 		error_delta = np.abs(error_curr - error_pre)
 		#output
-		print "epoch:", epoch, "error_curr:", error_curr, "error_pre:", error_pre, "error_delta:", error_delta, "rate: ", superpara.LEARN_RATE, "\n"
+		print "epoch:", epoch, "error_curr:", error_curr, "error_pre:", error_pre, "error_delta:", error_delta, "rate: ", superpara.LEARN_RATE
 		
 		if success(error_curr, error_delta) == 1: #early stop
 			return 1 #early return
 
+	restarterror()
 	return 1 #all epochs finished, return 1, so the loop in itrdescent terminates
 
 def itrdescent(dataset, step):

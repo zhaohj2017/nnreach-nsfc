@@ -5,15 +5,15 @@ INPUT_SIZE = DIMENSON + 2
 
 #the learn parameter
 EPOCHS = 1
-LEARN_RATE = 0.1
-BATCH_SIZE = 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+BATCH_SIZE = 10
 BATCH_NUM = 0
+LEARN_RATE = 0.1
 
 #for bfgs
 #if this number equals 1 and batch size equals 1, then degenerates to online SGD
-#if epoch = 1, if this number equals old EPOCH and batch size equals dataset length,
-#then degerates to standard full batch bfgs
-BFGS_BATCH_ITR_NUM = 500
+#if this number equals old EPOCH, current epoch = 1, and batch size equals dataset length, then degerates to standard full batch bfgs
+BFGS_BATCH_ITR_NUM = 20
+PRINT_MINI = 1 #print mini batch errors etc.
 
 #the network
 NUM_HIDDEN = 5
