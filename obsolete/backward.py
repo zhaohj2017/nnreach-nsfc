@@ -88,14 +88,14 @@ def gdescent(dataset, step):
 		#output
 		print "error_curr:", error_curr, "error_pre:", error_pre, "error_delta:", error_delta, "rate: ", superpara.LEARN_RATE, "\n"
 
-		if adaptive.jump(error_curr, error_delta) == 1:
-			restart() #reset the weight matrix
-			return 0  #restart from epoch 0
+		# if adaptive.jump(error_curr, error_delta) == 1:
+		# 	restart() #reset the weight matrix
+		# 	return 0  #restart from epoch 0
 
-		adaptive.adjust(error_curr, error_delta) #adjust learning rate
+		# adaptive.adjust(error_curr, error_delta) #adjust learning rate
 
-		if adaptive.stop(error_curr, error_delta) == 1: #early stop
-			return 1 #early return
+		# if adaptive.stop(error_curr, error_delta) == 1: #early stop
+		# 	return 1 #early return
 
 	return 1 #all epochs finished, return 1, so the loop in itrdescent terminates
 
