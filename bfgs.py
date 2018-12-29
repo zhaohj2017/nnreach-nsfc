@@ -3,7 +3,6 @@ import superpara
 import gradient
 import ann
 import random
-import chkweight
 import trainset
 import activation
 
@@ -20,24 +19,25 @@ error_delta = 0 #difference between the error of the current and previous epochs
 def error(w_matrix, w_ho, input, step): #square of the difference between derivatives: cost function, square error
 	return np.square(gradient.temp_res3(w_matrix, w_ho, input, step))
 
+def restarterror():
+	#errors between two epochs
+	global error_pre
+	global error_curr
+	global error_delta
+	error_pre = 0
+	error_curr = 0
+	error_delta = 0
+
 def restarthesse(): #reset variables and restart from epoch 0
 	#loop variables for bfgs quasi-newton 
 	global HESSE_SIZE
 	global m_hesse
 	global delta_weight
 	global pre_gradient
-	#errors between two epochs
-	global error_pre
-	global error_curr
-	global error_delta
-
 	#update global varialbes
 	m_hesse = np.eye(HESSE_SIZE)
 	delta_weight = np.zeros([HESSE_SIZE, 1])
 	pre_gradient = np.zeros([HESSE_SIZE, 1])
-	error_pre = 0
-	error_curr = 0
-	error_delta = 0
 
 def restartweight(): #reset variables and restart from epoch 0
 	#reset weights
@@ -50,6 +50,7 @@ def restartweight(): #reset variables and restart from epoch 0
 
 def restart():
 	restartweight()
+	restarterror()
 	restarthesse()
 
 def success(curr_error, delta_error): #revise if needed
@@ -58,7 +59,7 @@ def success(curr_error, delta_error): #revise if needed
 		return 1
 
 def linsearch():
-	return -superpara.LEARN_RATE
+	return superpara.LEARN_RATE
 
 def bfgs(batchset, step):
 	#global variables for bfgs quasi-newton 
@@ -114,10 +115,10 @@ def bfgs(batchset, step):
 
 	#then update direction
 	direction = m_hesse.dot(curr_gradient)
-
 	#then update learn rate
+	rate = linsearch()
 	#update delta parameter
-	delta_weight = linsearch() * direction
+	delta_weight = - rate * direction
 
 	#then update weights
 	ann.weight_y_h += delta_weight[0 : superpara.NUM_HIDDEN, 0] #extract
@@ -132,7 +133,6 @@ def quasinewton(dataset, step):
 	global error_pre
 	global error_curr
 	global error_delta
-
 
 	#the number of mini batches for each epoch
 	superpara.BATCH_NUM = len(dataset) / superpara.BATCH_SIZE

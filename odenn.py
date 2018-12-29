@@ -5,7 +5,6 @@ import ann
 import backward
 import trainset
 import test
-import chkweight
 import pipes
 import plot
 import time

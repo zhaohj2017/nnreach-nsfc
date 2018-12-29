@@ -4,7 +4,6 @@ import numpy as np
 import ann
 import random
 import adaptive
-import chkweight
 import trainset
 import activation
 
