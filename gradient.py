@@ -82,7 +82,7 @@ def sol_dtw_b_h(w_matrix, w_ho, input, step): #return an array
 def sol_dtw_h_o(w_matrix, w_ho, input, step): #return an array
 	return hidden_output(w_matrix, input) + (input[1, 0] - step * superpara.T_STEP) * hidden_output_prime(w_matrix, input) * w_matrix[:, -2]
 
-#gradient of the cost function (error function)
+#the error function: not squared
 def temp_res3(w_matrix, w_ho, input, step): #return a scalar: the discrepency between computed and demanded derivatives
 	return sol_dt(w_matrix, w_ho, input, step) - ode.ode(sol_candidate(w_matrix, w_ho, input, step), input[1, 0])
 
