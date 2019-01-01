@@ -1,6 +1,5 @@
 import numpy as np
 import ode
-import ann
 import activation
 import superpara
 import test
