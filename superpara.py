@@ -16,7 +16,7 @@ BFGS_BATCH_ITR_NUM = 20
 PRINT_MINI = 1 #print mini batch errors etc.
 
 #the network
-NUM_HIDDEN = 5
+NUM_HIDDEN = 20
 
 #the range and sampling granularity
 RANGE_Y = [0, 1]

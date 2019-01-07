@@ -102,8 +102,9 @@ def updatew(alpha, direction): #direction is a column vector
 	return [newmatrix, newho]
 
 def linsearch(batchset, step, direction, curr_error, curr_gradient):
+	return 0.5
 	#alpha1 = 0 
-	#alpha2 = 1
+	#alpha2 = 1.0
 	alpha = 1.0
 	phi1 = curr_error / 2.0 / len(batchset) # the cost function is the half of the sum of squares
 	phi1_prime = curr_gradient[:, 0].dot(direction[:, 0]) #transform column vector into array and then take inner product
@@ -130,7 +131,7 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 
 		#binary search
 		if not(flag1):
-			alpha = alpha / 2
+			alpha = alpha / 2.0
 
 		return alpha
 
