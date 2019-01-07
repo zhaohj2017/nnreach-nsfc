@@ -102,20 +102,42 @@ def updatew(alpha, direction): #direction is a column vector
 	return [newmatrix, newho]
 
 def linsearch(batchset, step, direction, curr_error, curr_gradient):
-	alpha1 = 0 
-	alpha2 = 1
-	alpha = (alpha1 + alpha2) / 2.0
+	#alpha1 = 0 
+	#alpha2 = 1
+	alpha = 1.0
 	phi1 = curr_error / 2.0 / len(batchset) # the cost function is the half of the sum of squares
 	phi1_prime = curr_gradient[:, 0].dot(direction[:, 0]) #transform column vector into array and then take inner product
 	c1 = 0.1
-	c2 = 0.9 #the smalller, the precise, the difficult
+	#c2 = 0.4 #the smalller, the precise, the difficult
 	
 	flag1 = False
-	flag2 = False
+	#flag2 = False
 
+	#simplified criteria
+	while not(flag1) and alpha >= 1e-2:
+		#update parameters
+		new_matrix_ho = updatew(alpha, direction)
+		new_matrix = new_matrix_ho[0]
+		new_ho = new_matrix_ho[1]
+
+		#new error and new gradient
+		new_error_gradient = curr_error_grad(new_matrix, new_ho, batchset, step)
+		new_error = new_error_gradient[0] / 2.0 / len(batchset)  # the cost function is the half of the sum of squares
+		#new_gradient = new_error_gradient[1]
+
+		#test condition 1 of Wolfe conditions
+		flag1 = new_error <= phi1 + c1 * alpha * phi1_prime
+
+		#binary search
+		if not(flag1):
+			alpha = alpha / 2
+
+		return alpha
+
+
+	"""
 	itr = 0
 	while not(flag1 and flag2) and itr < 5:
-		#print alpha1, alpha2, alpha
 		#update parameters
 		new_matrix_ho = updatew(alpha, direction)
 		new_matrix = new_matrix_ho[0]
@@ -130,25 +152,21 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 		flag1 = new_error <= phi1 + c1 * alpha * phi1_prime
 		flag2 = new_gradient[:, 0].dot(direction[:, 0]) >= c2 * phi1_prime
 
-		#print "flags:", flag1, flag2
-
-		"""
-		#interpolation
-		if not(flag1):
-			alpha_bar = alpha1 + (alpha - alpha1) / 2.0 / (1.0 + (phi1 - new_error) / (alpha - alpha1) / phi1_prime)
-			alpha2 = alpha
-			alpha = alpha_bar
-		elif not(flag2):
-			new_phi1_prime = new_gradient[:, 0].dot(direction[:, 0])
-			#alpha_bar = alpha + (alpha - alpha1) * new_phi1_prime / (phi1_prime - new_phi1_prime)
-			alpha_bar = alpha1 + (alpha - alpha1) / 2.0 / (1.0 + (phi1 - new_error) / (alpha - alpha1) / phi1_prime)
-			alpha1 = alpha
-			alpha = alpha_bar
-			phi1_prime = new_phi1_prime
-			phi1 = new_error
-		else:
-			pass
-		"""
+		# #interpolation
+		# if not(flag1):
+		# 	alpha_bar = alpha1 + (alpha - alpha1) / 2.0 / (1.0 + (phi1 - new_error) / (alpha - alpha1) / phi1_prime)
+		# 	alpha2 = alpha
+		# 	alpha = alpha_bar
+		# elif not(flag2):
+		# 	new_phi1_prime = new_gradient[:, 0].dot(direction[:, 0])
+		# 	#alpha_bar = alpha + (alpha - alpha1) * new_phi1_prime / (phi1_prime - new_phi1_prime)
+		# 	alpha_bar = alpha1 + (alpha - alpha1) / 2.0 / (1.0 + (phi1 - new_error) / (alpha - alpha1) / phi1_prime)
+		# 	alpha1 = alpha
+		# 	alpha = alpha_bar
+		# 	phi1_prime = new_phi1_prime
+		# 	phi1 = new_error
+		# else:
+		# 	pass
 
 		#binary search
 		if not(flag1):
@@ -163,7 +181,10 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 		itr += 1
 
 	return alpha
-	#return 0.1
+	"""
+
+
+
 
 def bfgs(batchset, step):
 	#global variables for bfgs quasi-newton 
