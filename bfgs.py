@@ -19,7 +19,7 @@ error_delta = 0 #difference between the error of the current and previous epochs
 #for learning rate adjustment
 alpha = 0.5 #initial learning rate
 beta = 1e-3
-gamma = 1.1
+gamma = 1.0
 
 def error(w_matrix, w_ho, input, step): #square of the difference between derivatives: cost function, square error
 	return np.square(gradient.temp_res3(w_matrix, w_ho, input, step))
@@ -28,12 +28,12 @@ def error(w_matrix, w_ho, input, step): #square of the difference between deriva
 def reguerror(w_matrix, w_ho):
 	w_yh = w_matrix[:, 0]   
 	w_th = w_matrix[:, -2]  
-	#w_bh = w_matrix[:, -1]  #do we need to regularize the bias?
+	w_bh = w_matrix[:, -1]  #do we need to regularize the bias?
 	#return superpara.REGU_FACTOR * (sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_bh)) + sum(np.square(w_ho))) / 2.0
 			 #do we need to regularize the bias?
-	return superpara.REGU_FACTOR * (sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_ho))) / 2.0
+	#return superpara.REGU_FACTOR * (sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_ho))) / 2.0
 			 #do not regularize the bias
-	#return (sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_ho))) / 2.0
+	return np.sqrt((sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_bh)) + sum(np.square(w_ho))) / (len(w_yh) + len(w_th) + len(w_bh) + len(w_ho)))
 			 #do not regularize the bias
 
 #gradient of regularization error term
@@ -317,8 +317,8 @@ def quasinewton(dataset, step):
 				error_batch = error_batch_curr_rate[0]
 				curr_rate = error_batch_curr_rate[1]
 				if superpara.PRINT_MINI == 1:
-					#print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "error_regu", reguerror(ann.weight_matrix, ann.weight_h_o), "rate:", curr_rate
-					print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "rate:", curr_rate
+					print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "error_regu", reguerror(ann.weight_matrix, ann.weight_h_o), "rate:", curr_rate
+					#print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "rate:", curr_rate
 
 			#reset hesse matrix for the next current batch
 			#restart bfgs for a new minibatch

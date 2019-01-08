@@ -7,6 +7,7 @@ INPUT_SIZE = DIMENSON + 2
 EPOCHS = 1
 BATCH_SIZE = 10
 BATCH_NUM = 0
+#initial learning rate, initial alpha
 LEARN_RATE = 0.5
 
 #for bfgs
