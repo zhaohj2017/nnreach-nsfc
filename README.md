@@ -39,3 +39,4 @@ To solve a problem:
 #reduce learning rate according to number of iterations
 
 #normalization, shifting and scaling
+#!!!!! why weight keep increasing????
