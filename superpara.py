@@ -15,7 +15,7 @@ BETA = 1e-3 #if beta equals 0 then constant rate = alpha
 GAMMA = 1 #when beta is nonzero, larger gamma gives faster drop of rate
 
 #momentum coefficient
-MOMENTUM_MU = 0.1 #if set to 0 then equivalent to pure gradient without momentum
+MOMENTUM_MU = 0 #if set to 0 then equivalent to pure gradient without momentum
 
 #for bfgs
 #if this number equals 1 and batch size equals 1, then degenerates to online SGD
