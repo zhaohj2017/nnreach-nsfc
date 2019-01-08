@@ -37,3 +37,5 @@ To solve a problem:
 #why exception handling do not work?
 
 #reduce learning rate according to number of iterations
+
+#normalization, shifting and scaling

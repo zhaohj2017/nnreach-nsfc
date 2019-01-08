@@ -16,10 +16,6 @@ error_pre = 0 #error of the previous epoch
 error_curr = 0 #error of the current epoch
 error_delta = 0 #difference between the error of the current and previous epochs
 
-#for learning rate adjustment
-alpha = 0.5 #initial learning rate
-beta = 1e-3
-gamma = 1.0
 
 def error(w_matrix, w_ho, input, step): #square of the difference between derivatives: cost function, square error
 	return np.square(gradient.temp_res3(w_matrix, w_ho, input, step))
@@ -72,7 +68,9 @@ def restarthesse(): #reset variables and restart from epoch 0
 
 def restartweight(): #reset variables and restart from epoch 0
 	#reset weights
-	ann.weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) #matrix
+	rand_sigma = 1.0 / np.sqrt((superpara.INPUT_SIZE + 1) * superpara.NUM_HIDDEN)
+	rand_mu = 0
+	ann.weight_matrix = rand_sigma * np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) + rand_mu
 	ann.weight_y_h = ann.weight_matrix[:, 0]    			#array (or matrix ?)
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
@@ -268,11 +266,14 @@ def bfgs(batchset, step):
 	#update delta parameter: using minus rate
 	delta_weight = rate * direction #update delta weight
 
+	#update velocity
+	ann.velocity = superpara.MOMENTUM_MU * ann.velocity + delta_weight
+
 	#then update weights
-	ann.weight_y_h += delta_weight[0 : superpara.NUM_HIDDEN, 0] #extract
-	ann.weight_t_h += delta_weight[superpara.NUM_HIDDEN : superpara.NUM_HIDDEN * 2, 0]
-	ann.weight_b_h += delta_weight[superpara.NUM_HIDDEN * 2 : superpara.NUM_HIDDEN * 3, 0]
-	ann.weight_h_o += delta_weight[superpara.NUM_HIDDEN * 3 : direction.size, 0]
+	ann.weight_y_h += ann.velocity[0 : superpara.NUM_HIDDEN, 0] #extract
+	ann.weight_t_h += ann.velocity[superpara.NUM_HIDDEN : superpara.NUM_HIDDEN * 2, 0]
+	ann.weight_b_h += ann.velocity[superpara.NUM_HIDDEN * 2 : superpara.NUM_HIDDEN * 3, 0]
+	ann.weight_h_o += ann.velocity[superpara.NUM_HIDDEN * 3 : direction.size, 0]
 
 	#return the error of this batch after a number of bfgs iterations on this minibatch
 	return [error_batch, rate] #return for output
@@ -282,11 +283,6 @@ def quasinewton(dataset, step):
 	global error_pre
 	global error_curr
 	global error_delta
-
-	#for learning rate adjustment
-	global alpha
-	global beta
-	global gamma # rate = alpha / (1 + beta * itr^gamma)
 
 	#the number of mini batches for each epoch
 	superpara.BATCH_NUM = len(dataset) / superpara.BATCH_SIZE
@@ -312,7 +308,7 @@ def quasinewton(dataset, step):
 			#start bfgs iterations for current minibatch
 			for iteration in range(superpara.BFGS_BATCH_ITR_NUM):
 				#adjust learning rate
-				superpara.LEARN_RATE = alpha / (1.0 + beta * np.power(iteration, gamma))
+				superpara.LEARN_RATE = superpara.ALPHA / (1.0 + superpara.BETA * np.power(iteration, superpara.GAMMA))
 				error_batch_curr_rate = bfgs(batchset, step)
 				error_batch = error_batch_curr_rate[0]
 				curr_rate = error_batch_curr_rate[1]

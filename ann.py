@@ -4,13 +4,23 @@ import superpara
 ##set the initial weights
 ##standard normal distribution
 #these are the working weights that are updated during the learning process
-weight_matrix = np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE)
+
+#why does not work well??? very bad
+#rand_sigma = 1.0 / np.sqrt((superpara.INPUT_SIZE + 1) * superpara.NUM_HIDDEN)
+rand_sigma = 1
+rand_mu = 0
+weight_matrix = rand_sigma * np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) + rand_mu
 
 weight_y_h = weight_matrix[:, 0]    			#array (or matrix ?)
 weight_t_h = weight_matrix[:, -2]    			#array
 weight_b_h = weight_matrix[:, -1]    			#array
 
-weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
+#standard normal distribution for bias
+weight_h_o = rand_sigma * np.random.rand(superpara.NUM_HIDDEN) + rand_mu	#array
+
+#velocity and momentum
+velocity = np.zeros([len(weight_y_h) + len(weight_t_h) + len(weight_b_h) + len(weight_h_o), 1])
+
 
 def outweight():
 	global weight_matrix
