@@ -35,3 +35,5 @@ To solve a problem:
 #exception handling
 
 #why exception handling do not work?
+
+#reduce learning rate according to number of iterations

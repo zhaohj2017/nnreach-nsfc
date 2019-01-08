@@ -16,8 +16,39 @@ error_pre = 0 #error of the previous epoch
 error_curr = 0 #error of the current epoch
 error_delta = 0 #difference between the error of the current and previous epochs
 
+#for learning rate adjustment
+alpha = 0.5 #initial learning rate
+beta = 1e-3
+gamma = 1.1
+
 def error(w_matrix, w_ho, input, step): #square of the difference between derivatives: cost function, square error
 	return np.square(gradient.temp_res3(w_matrix, w_ho, input, step))
+
+#regularization error term
+def reguerror(w_matrix, w_ho):
+	w_yh = w_matrix[:, 0]   
+	w_th = w_matrix[:, -2]  
+	#w_bh = w_matrix[:, -1]  #do we need to regularize the bias?
+	#return superpara.REGU_FACTOR * (sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_bh)) + sum(np.square(w_ho))) / 2.0
+			 #do we need to regularize the bias?
+	return superpara.REGU_FACTOR * (sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_ho))) / 2.0
+			 #do not regularize the bias
+	#return (sum(np.square(w_yh)) + sum(np.square(w_th)) + sum(np.square(w_ho))) / 2.0
+			 #do not regularize the bias
+
+#gradient of regularization error term
+def regugradient(w_matrix, w_ho):
+	w_yh = w_matrix[:, 0]   
+	w_th = w_matrix[:, -2]  
+	w_bh = w_matrix[:, -1]  #do we need to regularize the bias?
+	regugrad1 = np.append(w_yh, w_th)
+	#regugrad2 = np.append(regugrad1, w_bh)
+	regugrad2 = np.append(regugrad1, np.zeros(len(w_bh))) # do not regularize bias
+	regugrad3 = np.append(regugrad2, w_ho)
+	#reshape into a column vector
+	regugrad = regugrad3.reshape(regugrad3.size, 1)
+	#regularization factor
+	return superpara.REGU_FACTOR * regugrad
 
 def restarterror():
 	#errors between two epochs
@@ -87,6 +118,8 @@ def curr_error_grad(w_matrix, w_ho, batchset, step):
 	avg_gradient = np.append(avg_gradient, sum_grad_who / len(batchset))
 	#reshape into a column vector
 	curr_gradient = avg_gradient.reshape(avg_gradient.size, 1)
+	#add gradient of regularization term
+	curr_gradient = curr_gradient + regugradient(w_matrix, w_ho)
 
 	return [error_batch, curr_gradient]
 
@@ -102,11 +135,13 @@ def updatew(alpha, direction): #direction is a column vector
 	return [newmatrix, newho]
 
 def linsearch(batchset, step, direction, curr_error, curr_gradient):
-	return 0.5
+	"""
 	#alpha1 = 0 
 	#alpha2 = 1.0
 	alpha = 1.0
-	phi1 = curr_error / 2.0 / len(batchset) # the cost function is the half of the sum of squares
+	phi1 = curr_error / 2.0 / len(batchset) + reguerror(ann.weight_matrix, ann.weight_h_o) 
+		# the cost function is the half of the sum of squares
+		# plus the cost of the regularization term
 	phi1_prime = curr_gradient[:, 0].dot(direction[:, 0]) #transform column vector into array and then take inner product
 	c1 = 0.1
 	#c2 = 0.4 #the smalller, the precise, the difficult
@@ -123,7 +158,9 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 
 		#new error and new gradient
 		new_error_gradient = curr_error_grad(new_matrix, new_ho, batchset, step)
-		new_error = new_error_gradient[0] / 2.0 / len(batchset)  # the cost function is the half of the sum of squares
+		new_error = new_error_gradient[0] / 2.0 / len(batchset) + reguerror(new_matrix, new_ho)
+			# the cost function is the half of the sum of squares
+			# plus the cost of the regularization term
 		#new_gradient = new_error_gradient[1]
 
 		#test condition 1 of Wolfe conditions
@@ -134,7 +171,10 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 			alpha = alpha / 2.0
 
 		return alpha
+	"""
 
+	#the above the the simplified criteria for linear search
+	#the following conditions are Wolfe-Powell conditions for linear search
 
 	"""
 	itr = 0
@@ -146,12 +186,16 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 
 		#new error and new gradient
 		new_error_gradient = curr_error_grad(new_matrix, new_ho, batchset, step)
-		new_error = new_error_gradient[0] / 2.0 / len(batchset)  # the cost function is the half of the sum of squares
+		new_error = new_error_gradient[0] / 2.0 / len(batchset) + reguerror(new_matrix, new_ho)
+			# the cost function is the half of the sum of squares
+			# plus the cost of the regularization term
 		new_gradient = new_error_gradient[1]
 
 		#test condition 1 of Wolfe conditions
 		flag1 = new_error <= phi1 + c1 * alpha * phi1_prime
 		flag2 = new_gradient[:, 0].dot(direction[:, 0]) >= c2 * phi1_prime
+
+		#use interpolation or binary search to update intervals
 
 		# #interpolation
 		# if not(flag1):
@@ -160,6 +204,7 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 		# 	alpha = alpha_bar
 		# elif not(flag2):
 		# 	new_phi1_prime = new_gradient[:, 0].dot(direction[:, 0])
+		# 	#different interpolation methods
 		# 	#alpha_bar = alpha + (alpha - alpha1) * new_phi1_prime / (phi1_prime - new_phi1_prime)
 		# 	alpha_bar = alpha1 + (alpha - alpha1) / 2.0 / (1.0 + (phi1 - new_error) / (alpha - alpha1) / phi1_prime)
 		# 	alpha1 = alpha
@@ -169,7 +214,7 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 		# else:
 		# 	pass
 
-		#binary search
+		#binary search instead of interpolation
 		if not(flag1):
 			alpha2 = alpha
 			alpha = (alpha1 + alpha2) / 2.0
@@ -183,8 +228,7 @@ def linsearch(batchset, step, direction, curr_error, curr_gradient):
 
 	return alpha
 	"""
-
-
+	return superpara.LEARN_RATE #the constant learning rate, superpara.LEARN_RATE
 
 
 def bfgs(batchset, step):
@@ -239,6 +283,11 @@ def quasinewton(dataset, step):
 	global error_curr
 	global error_delta
 
+	#for learning rate adjustment
+	global alpha
+	global beta
+	global gamma # rate = alpha / (1 + beta * itr^gamma)
+
 	#the number of mini batches for each epoch
 	superpara.BATCH_NUM = len(dataset) / superpara.BATCH_SIZE
 	if len(dataset) % superpara.BATCH_SIZE != 0: #the remaining data, not a whole batch
@@ -262,12 +311,14 @@ def quasinewton(dataset, step):
 
 			#start bfgs iterations for current minibatch
 			for iteration in range(superpara.BFGS_BATCH_ITR_NUM):
-				iteration = iteration #avoid warning, no other meaning
+				#adjust learning rate
+				superpara.LEARN_RATE = alpha / (1.0 + beta * np.power(iteration, gamma))
 				error_batch_curr_rate = bfgs(batchset, step)
 				error_batch = error_batch_curr_rate[0]
 				curr_rate = error_batch_curr_rate[1]
 				if superpara.PRINT_MINI == 1:
-					print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "rate: ", curr_rate
+					#print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "error_regu", reguerror(ann.weight_matrix, ann.weight_h_o), "rate:", curr_rate
+					print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "rate:", curr_rate
 
 			#reset hesse matrix for the next current batch
 			#restart bfgs for a new minibatch
@@ -281,7 +332,7 @@ def quasinewton(dataset, step):
 		error_curr = np.sqrt(error_epoch / len(dataset))	#average error, mean and squared
 		error_delta = np.abs(error_curr - error_pre)
 		#output
-		print "epoch:", epoch, "error_curr:", error_curr, "error_pre:", error_pre, "error_delta:", error_delta, "rate: ", superpara.LEARN_RATE
+		print "epoch:", epoch, "error_curr:", error_curr, "error_pre:", error_pre, "error_delta:", error_delta, "rate:", superpara.LEARN_RATE
 		
 		if success(error_curr, error_delta) == 1: #early stop
 			return 1 #early return

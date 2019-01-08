@@ -16,7 +16,7 @@ for step in range(superpara.NUM_STEP):
 	#generating training set
 	dataset = trainset.gendata(step) #generating training set for every time step
 
-	#superpara.LEARN_RATE = 0.5
+	superpara.LEARN_RATE = 0.5
 	superpara.EPOCHS = 1
 	superpara.BATCH_SIZE = len(dataset)
 	superpara.BFGS_BATCH_ITR_NUM = 500
