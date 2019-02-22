@@ -1,4 +1,64 @@
 #working 
+#super parameter for example: dy / dt = y
+DIMENSON = 1
+INPUT_SIZE = DIMENSON + 2
+
+#the learn parameter
+EPOCHS = 1
+BATCH_SIZE = 10
+BATCH_NUM = 0
+#initial learning rate, initial alpha
+LEARN_RATE = 0.5
+#for learning rate adjustment; # rate = alpha / (1 + beta * itr^gamma)
+ALPHA = 0.5 #initial learning rate
+BETA = 1e-3 #if beta equals 0 then constant rate = alpha
+GAMMA = 1 #when beta is nonzero, larger gamma gives faster drop of rate
+
+#momentum coefficient
+MOMENTUM_MU = 0 #if set to 0 then equivalent to pure gradient without momentum
+
+#for bfgs
+#if this number equals 1 and batch size equals 1, then degenerates to online SGD
+#if this number equals old EPOCH, current epoch = 1, and batch size equals dataset length, then degerates to standard full batch bfgs
+BFGS_BATCH_ITR_NUM = 5
+PRINT_MINI = 1 #print mini batch errors etc.
+
+#regularization factor
+REGU_FACTOR = 0 # == lambda / len(dataset)
+
+#the network
+NUM_HIDDEN = 20
+
+#the range and sampling granularity
+RANGE_Y = [0.2, 0.5]
+LENGTH_T = 1
+RANGE_T = [0, LENGTH_T]
+
+MESH_SIZE_Y = 0.03
+MESH_SIZE_T = 0.05
+
+TEST_FACTOR_T = 20 #sample ten points for every training points
+TEST_FACTOR_Y = 20
+PLOT_MESH_Y = MESH_SIZE_Y / TEST_FACTOR_Y
+PLOT_MESH_T = MESH_SIZE_T / TEST_FACTOR_T
+
+#the time step of flowpipe
+T_STEP = 0.5
+NUM_STEP = int(round(LENGTH_T / T_STEP)) # very important
+if LENGTH_T - NUM_STEP * T_STEP > 1e-3 * T_STEP: #not a whole step
+    NUM_STEP += 1
+
+#the blowup factor of flowpipe
+ENLARGE_Y = MESH_SIZE_Y * 0
+ENLARGE_T = MESH_SIZE_T * 0
+
+#is it helpful to sample more points???
+EPS_Y = 0.0
+EPS_T = 0.0 # EPS_T should be less than T_STEP
+
+"""
+#****************************the following are fixed!!!**********************************************
+#date 2019-01-10
 #super parameter for example: dy / dt = exp(y)
 DIMENSON = 1
 INPUT_SIZE = DIMENSON + 2
@@ -54,7 +114,7 @@ ENLARGE_T = MESH_SIZE_T * 0
 #is it helpful to sample more points???
 EPS_Y = 0.0
 EPS_T = 0.0 # EPS_T should be less than T_STEP
-
+"""
 
 #****************************the following are fixed!!!*****************************************************
 """FIXED for dy / dt = exp(y) date 2018-12-27

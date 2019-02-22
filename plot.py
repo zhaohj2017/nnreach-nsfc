@@ -37,10 +37,10 @@ def horiplot():
 			plt.plot(sample_t, trace_sy, color = 'b', linestyle = '-')
 
 	#working
-	#plot the real upper and lower bounds for the example: dy / dt = exp(y)
+	#plot the real upper and lower bounds for the example: dy / dt = y
 	t = np.arange(0, superpara.LENGTH_T + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
-	ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
-	ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
+	ytop = (superpara.RANGE_Y[1]) * np.exp(t)
+	ybtm = (superpara.RANGE_Y[0]) * np.exp(t)
 	plt.plot(t, ytop, color = 'r', linestyle = '-')
 	plt.plot(t, ybtm, color = 'r', linestyle = '-')
 
@@ -58,6 +58,7 @@ def horiplot():
 	t = np.arange(0, superpara.LENGTH_T + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
 	ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
 	ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
+		# t = 0.36787944117144233 is the asymptote
 	plt.plot(t, ytop, color = 'r', linestyle = '-')
 	plt.plot(t, ybtm, color = 'r', linestyle = '-')
 	"""
@@ -125,13 +126,34 @@ def vertiplot():
 	#plot reachable set
 	plt.bar(time, np.array(height), 0.0001, bottom, facecolor = 'g', edgecolor = 'g')
 
+	#working
+	#plot the real upper and lower bounds for the example: dy / dt = y
+	t = np.arange(0, superpara.LENGTH_T + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
+	ytop = (superpara.RANGE_Y[1]) * np.exp(t)
+	ybtm = (superpara.RANGE_Y[0]) * np.exp(t)
+	plt.plot(t, ytop, color = 'r', linestyle = '-')
+	plt.plot(t, ybtm, color = 'r', linestyle = '-')
+	
+	"""
+	#plot the real upper and lower bounds for the example: dy / dt = y
+	t = np.arange(0, superpara.LENGTH_T + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
+	print t
+	ytop = (superpara.RANGE_Y[1]) * np.exp(t)
+	ybtm = (superpara.RANGE_Y[0]) * np.exp(t)
+	plt.plot(t, ytop, color = 'r', linestyle = '-')
+	plt.plot(t, ybtm, color = 'r', linestyle = '-')
+	"""
+
+	"""
 	#plot the upper and lower bounds for the example: dy / dt = exp(y)
 	t = np.arange(0, superpara.LENGTH_T + superpara.PLOT_MESH_T * 0.99, superpara.PLOT_MESH_T)
 	ytop = - np.log(np.exp(- superpara.RANGE_Y[1]) - t)
 	ybtm = - np.log(np.exp(- superpara.RANGE_Y[0]) - t)
+		# t = 0.36787944117144233 is the asymptote
 	#the real upper and lower bounds
 	plt.plot(t, ytop, color = 'r', linestyle = '-')
 	plt.plot(t, ybtm, color = 'r', linestyle = '-')
-	
+	"""
+
 	#show the plots
 	plt.show()
