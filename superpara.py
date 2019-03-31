@@ -31,7 +31,7 @@ NUM_HIDDEN = 20
 
 #the range and sampling granularity
 RANGE_Y = [0.2, 0.5]
-LENGTH_T = 1
+LENGTH_T = 0.5
 RANGE_T = [0, LENGTH_T]
 
 MESH_SIZE_Y = 0.03
