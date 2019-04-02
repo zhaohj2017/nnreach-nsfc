@@ -6,6 +6,7 @@ import superpara
 #these are the working weights that are updated during the learning process
 
 #why does not work well??? very bad
+#good or bad, try to test, more!!!
 #rand_sigma = 1.0 / np.sqrt((superpara.INPUT_SIZE + 1) * superpara.NUM_HIDDEN)
 rand_mu = 0
 rand_sigma = 1
