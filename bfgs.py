@@ -71,11 +71,11 @@ def restartweight(): #reset variables and restart from epoch 0
 	#rand_sigma = 1.0 / np.sqrt((superpara.INPUT_SIZE + 1) * superpara.NUM_HIDDEN)
 	rand_sigma = 1.0
 	rand_mu = 0
-	ann.weight_matrix = rand_sigma * np.random.rand(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) + rand_mu
+	ann.weight_matrix = rand_sigma * np.random.randn(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) + rand_mu
 	ann.weight_y_h = ann.weight_matrix[:, 0]    			#array (or matrix ?)
 	ann.weight_t_h = ann.weight_matrix[:, -2]    			#array
 	ann.weight_b_h = ann.weight_matrix[:, -1]    			#array
-	ann.weight_h_o = np.random.rand(superpara.NUM_HIDDEN)	#array
+	ann.weight_h_o = np.random.randn(superpara.NUM_HIDDEN)	#array
 	#ann.outweight()
 
 def restart():
