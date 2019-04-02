@@ -8,8 +8,8 @@ import superpara
 #why does not work well??? very bad
 #good or bad, try to test, more!!!
 #rand_sigma = 1.0 / np.sqrt((superpara.INPUT_SIZE + 1) * superpara.NUM_HIDDEN)
-rand_mu = 0
-rand_sigma = 1
+rand_mu = 0.1
+rand_sigma = 0
 weight_matrix = rand_sigma * np.random.randn(superpara.NUM_HIDDEN, superpara.INPUT_SIZE) + rand_mu
 
 weight_y_h = weight_matrix[:, 0]    			#array (or matrix ?)
