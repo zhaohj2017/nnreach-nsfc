@@ -314,8 +314,8 @@ def quasinewton(dataset, step):
 				error_batch = error_batch_curr_rate[0]
 				curr_rate = error_batch_curr_rate[1]
 				if superpara.PRINT_MINI == 1:
-					print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "error_regu", reguerror(ann.weight_matrix, ann.weight_h_o), "rate:", curr_rate
-					#print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "rate:", curr_rate
+					#print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "error_regu", reguerror(ann.weight_matrix, ann.weight_h_o), "rate:", curr_rate
+					print "\tbfgs iteration for this mini batch:", iteration, "error_batch average:", np.sqrt(error_batch / len(batchset)), "rate:", curr_rate
 
 			#reset hesse matrix for the next current batch
 			#restart bfgs for a new minibatch
