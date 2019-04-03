@@ -19,7 +19,7 @@ for step in range(superpara.NUM_STEP):
 	superpara.ALPHA = superpara.LEARN_RATE
 	superpara.EPOCHS = 1
 	superpara.BATCH_SIZE = len(dataset)
-	superpara.BFGS_BATCH_ITR_NUM = 50
+	superpara.BFGS_BATCH_ITR_NUM = 500
 	superpara.PRINT_MINI = 1
 	bfgs.itrdescent(dataset, step)
 

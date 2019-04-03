@@ -13,11 +13,11 @@ import ann
 # def ode_dy(y, t):
 # 	return 2 * y # dy / dy = 1
 def ode(y, t):
-	return y # dy / dt = y
+	return np.exp(y) # dy / dt = y
 
 #ode_derivative
 def ode_dy(y, t):
-	return 1 # dy / dy = 1
+	return np.exp(y)# dy / dy = 1
 
 
 """
