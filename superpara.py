@@ -31,11 +31,11 @@ NUM_HIDDEN = 20
 
 #the range and sampling granularity
 RANGE_Y = [0, 1]
-LENGTH_T = 0.36
+LENGTH_T = 0.367
 RANGE_T = [0, LENGTH_T]
 
 MESH_SIZE_Y = 0.1
-MESH_SIZE_T = 0.036
+MESH_SIZE_T = 0.0367
 
 TEST_FACTOR_T = 20 #sample ten points for every training points
 TEST_FACTOR_Y = 20
@@ -43,7 +43,7 @@ PLOT_MESH_Y = MESH_SIZE_Y / TEST_FACTOR_Y
 PLOT_MESH_T = MESH_SIZE_T / TEST_FACTOR_T
 
 #the time step of flowpipe
-T_STEP = 0.36
+T_STEP = 0.367
 NUM_STEP = int(round(LENGTH_T / T_STEP)) # very important
 if LENGTH_T - NUM_STEP * T_STEP > 1e-3 * T_STEP: #not a whole step
     NUM_STEP += 1
