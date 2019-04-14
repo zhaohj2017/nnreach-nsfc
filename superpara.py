@@ -27,7 +27,7 @@ PRINT_MINI = 1 #print mini batch errors etc.
 REGU_FACTOR = 0 # == lambda / len(dataset)
 
 #the network
-NUM_HIDDEN = 20
+NUM_HIDDEN = 30
 
 #the range and sampling granularity
 RANGE_Y = [0, 1]
